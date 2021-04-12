@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Recipes
-//
-//  Created by Almat Kulbaev on 12.04.2021.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -15,8 +8,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     guard let scene = (scene as? UIWindowScene) else { return }
 
+    let assembly = Assembly()
+    let router = Router(assembly: assembly)
+    
     let window = UIWindow(windowScene: scene)
-    window.rootViewController = ViewController()
+    window.rootViewController = router.navigationController
     window.makeKeyAndVisible()
     self.window = window
   }

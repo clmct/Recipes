@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Recipes
-//
-//  Created by Almat Kulbaev on 12.04.2021.
-//
-
 import UIKit
 
 @main

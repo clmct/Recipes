@@ -3,25 +3,36 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332C262492EE00D571A3 /* AppDelegate.swift */; };
 		B223332F262492EE00D571A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332E262492EE00D571A3 /* SceneDelegate.swift */; };
-		B2233331262492EE00D571A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2233330262492EE00D571A3 /* ViewController.swift */; };
+		B2233331262492EE00D571A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2233330262492EE00D571A3 /* MainViewController.swift */; };
 		B2233336262492F200D571A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2233335262492F200D571A3 /* Assets.xcassets */; };
 		B2233339262492F200D571A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2233337262492F200D571A3 /* LaunchScreen.storyboard */; };
+		B223334D2624990400D571A3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223334C2624990400D571A3 /* DetailViewController.swift */; };
+		B223335226249B6500D571A3 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335126249B6500D571A3 /* Assembly.swift */; };
+		B223335526249E9100D571A3 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335426249E9000D571A3 /* RecipeTableViewCell.swift */; };
+		B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */; };
+		B223335D2624A1B600D571A3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B223335C2624A1B600D571A3 /* SnapKit */; };
+		B22333702624D4BF00D571A3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223336F2624D4BF00D571A3 /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B2233329262492EE00D571A3 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B223332C262492EE00D571A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B223332E262492EE00D571A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B2233330262492EE00D571A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B2233330262492EE00D571A3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B2233335262492F200D571A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2233338262492F200D571A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B223333A262492F200D571A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B223334C2624990400D571A3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B223335126249B6500D571A3 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		B223335426249E9000D571A3 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCellProtocol.swift; sourceTree = "<group>"; };
+		B223336F2624D4BF00D571A3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B223335D2624A1B600D571A3 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +68,41 @@
 			children = (
 				B223332C262492EE00D571A3 /* AppDelegate.swift */,
 				B223332E262492EE00D571A3 /* SceneDelegate.swift */,
-				B2233330262492EE00D571A3 /* ViewController.swift */,
+				B223335126249B6500D571A3 /* Assembly.swift */,
+				B223336F2624D4BF00D571A3 /* Router.swift */,
+				B22333472624988D00D571A3 /* Modules */,
 				B2233335262492F200D571A3 /* Assets.xcassets */,
 				B2233337262492F200D571A3 /* LaunchScreen.storyboard */,
 				B223333A262492F200D571A3 /* Info.plist */,
 			);
 			path = Recipes;
+			sourceTree = "<group>";
+		};
+		B22333472624988D00D571A3 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B2233349262498A600D571A3 /* Main */,
+				B223334B262498AE00D571A3 /* Detail */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		B2233349262498A600D571A3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */,
+				B2233330262492EE00D571A3 /* MainViewController.swift */,
+				B223335426249E9000D571A3 /* RecipeTableViewCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		B223334B262498AE00D571A3 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				B223334C2624990400D571A3 /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +121,9 @@
 			dependencies = (
 			);
 			name = Recipes;
+			packageProductDependencies = (
+				B223335C2624A1B600D571A3 /* SnapKit */,
+			);
 			productName = Recipes;
 			productReference = B2233329262492EE00D571A3 /* Recipes.app */;
 			productType = "com.apple.product-type.application";
@@ -107,6 +151,9 @@
 				Base,
 			);
 			mainGroup = B2233320262492EE00D571A3;
+			packageReferences = (
+				B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = B223332A262492EE00D571A3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,9 +180,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2233331262492EE00D571A3 /* ViewController.swift in Sources */,
+				B22333702624D4BF00D571A3 /* Router.swift in Sources */,
+				B2233331262492EE00D571A3 /* MainViewController.swift in Sources */,
+				B223335226249B6500D571A3 /* Assembly.swift in Sources */,
 				B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */,
+				B223335526249E9100D571A3 /* RecipeTableViewCell.swift in Sources */,
+				B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */,
 				B223332F262492EE00D571A3 /* SceneDelegate.swift in Sources */,
+				B223334D2624990400D571A3 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +383,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B223335C2624A1B600D571A3 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2233321262492EE00D571A3 /* Project object */;
 }
