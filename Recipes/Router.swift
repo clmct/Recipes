@@ -18,6 +18,8 @@ final class Router: RouterProtocol {
   func showRecipes() {
     let viewController = assembly.createMainModule(router: self)
     navigationController.viewControllers = [viewController]
+    
+    showDetailRecipe()
   }
   
   func showDetailRecipe() {

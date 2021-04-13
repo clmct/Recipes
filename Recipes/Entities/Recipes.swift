@@ -12,4 +12,13 @@ struct Recipe: Codable, Hashable {
   let description: String?
   let instructions: String
   let difficulty: Int
+  
+//  static func <(lhs: Recipe, rhs: Recipe) -> Bool {
+//    return lhs.name < rhs.name
+//  }
+//  
+//  static func >(lhs: Recipe, rhs: Recipe) -> Bool {
+//    return lhs.lastUpdated > rhs.lastUpdated
+//  }
 }
+

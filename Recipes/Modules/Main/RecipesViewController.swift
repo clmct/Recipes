@@ -35,17 +35,21 @@ final class RecipesViewController: UIViewController {
   
 }
 
+// MARK: Data Source
 extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    viewModel?.recipes.count ?? 0
+    
+    print(viewModel?.filteredRecipes.count ?? 0)
+    
+    return viewModel?.filteredRecipes.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: RecipeTableViewCell.identifire, for: indexPath) as? RecipeTableViewCell else {
       return UITableViewCell()
     }
-    if let recipe = viewModel?.recipes[indexPath.row] {
+    if let recipe = viewModel?.filteredRecipes[indexPath.row] {
       cell.configure(with: recipe)
     }
     return cell
@@ -57,7 +61,33 @@ extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   
 }
 
+// MARK: Search Results Updating
+extension RecipesViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    viewModel?.updateSearchResults(searchController: searchController)
+    tableView.reloadData()
+  }
+}
+
 private extension RecipesViewController {
+  
+  func createActionSheet() {
+    let actionSheet = UIAlertController()
+    
+    actionSheet.addAction(UIAlertAction(title: "Sort by Name", style: .default, handler: { _ in
+      self.viewModel?.sort(type: .name)
+      self.tableView.reloadData()
+    }))
+    
+    actionSheet.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: { _ in
+      self.viewModel?.sort(type: .date)
+      self.tableView.reloadData()
+    }))
+    
+    actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+    
+    present(actionSheet, animated: true)
+  }
   
   func setupLayout() {
     setupButton()
@@ -66,8 +96,12 @@ private extension RecipesViewController {
   }
   
   func setupButton() {
-    let button = UIBarButtonItem(title: "Sort by", style: .plain, target: nil, action: nil)
+    let button = UIBarButtonItem(title: "Sort by", style: .plain, target: self, action: #selector(showActionCheet))
     self.navigationItem.rightBarButtonItem = button
+  }
+  
+  @objc func showActionCheet() {
+    createActionSheet()
   }
   
   func setupSearchController() {
@@ -76,6 +110,7 @@ private extension RecipesViewController {
     definesPresentationContext = true
     navigationItem.hidesSearchBarWhenScrolling = false
     navigationItem.searchController = self.searchController
+    searchController.searchResultsUpdater = self
   }
   
   func setupTableView() {

@@ -8,11 +8,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     guard let scene = (scene as? UIWindowScene) else { return }
 
-    let assembly = Assembly()
-    let router = Router(assembly: assembly)
+//    let assembly = Assembly()
+//    let router = Router(assembly: assembly)
     
     let window = UIWindow(windowScene: scene)
-    window.rootViewController = router.navigationController
+    window.rootViewController = UINavigationController(rootViewController: DetailViewController())
     window.makeKeyAndVisible()
     self.window = window
   }
