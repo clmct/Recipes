@@ -18,6 +18,10 @@
 		B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */; };
 		B223335D2624A1B600D571A3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B223335C2624A1B600D571A3 /* SnapKit */; };
 		B22333702624D4BF00D571A3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223336F2624D4BF00D571A3 /* Router.swift */; };
+		B22333732624D90F00D571A3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22333722624D90F00D571A3 /* NetworkService.swift */; };
+		B22333762624D95E00D571A3 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22333752624D95E00D571A3 /* NetworkRouter.swift */; };
+		B223337B2624DA5B00D571A3 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223337A2624DA5B00D571A3 /* Recipes.swift */; };
+		B2FE83202625891100AC4763 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FE831F2625891100AC4763 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		B223335426249E9000D571A3 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCellProtocol.swift; sourceTree = "<group>"; };
 		B223336F2624D4BF00D571A3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		B22333722624D90F00D571A3 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B22333752624D95E00D571A3 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		B223337A2624DA5B00D571A3 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		B2FE831F2625891100AC4763 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,9 @@
 				B223335126249B6500D571A3 /* Assembly.swift */,
 				B223336F2624D4BF00D571A3 /* Router.swift */,
 				B22333472624988D00D571A3 /* Modules */,
+				B2FE831B2625873A00AC4763 /* Services */,
+				B2FE831D2625874F00AC4763 /* Entities */,
+				B2FE831F2625891100AC4763 /* Logger.swift */,
 				B2233335262492F200D571A3 /* Assets.xcassets */,
 				B2233337262492F200D571A3 /* LaunchScreen.storyboard */,
 				B223333A262492F200D571A3 /* Info.plist */,
@@ -103,6 +114,31 @@
 				B223334C2624990400D571A3 /* DetailViewController.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		B22333782624D9A400D571A3 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				B22333722624D90F00D571A3 /* NetworkService.swift */,
+				B22333752624D95E00D571A3 /* NetworkRouter.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		B2FE831B2625873A00AC4763 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B22333782624D9A400D571A3 /* NetworkService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B2FE831D2625874F00AC4763 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				B223337A2624DA5B00D571A3 /* Recipes.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,8 +220,12 @@
 				B2233331262492EE00D571A3 /* MainViewController.swift in Sources */,
 				B223335226249B6500D571A3 /* Assembly.swift in Sources */,
 				B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */,
+				B22333732624D90F00D571A3 /* NetworkService.swift in Sources */,
 				B223335526249E9100D571A3 /* RecipeTableViewCell.swift in Sources */,
+				B223337B2624DA5B00D571A3 /* Recipes.swift in Sources */,
+				B2FE83202625891100AC4763 /* Logger.swift in Sources */,
 				B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */,
+				B22333762624D95E00D571A3 /* NetworkRouter.swift in Sources */,
 				B223332F262492EE00D571A3 /* SceneDelegate.swift in Sources */,
 				B223334D2624990400D571A3 /* DetailViewController.swift in Sources */,
 			);
