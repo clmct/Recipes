@@ -1,7 +1,9 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController {
+final class RecipesViewController: UIViewController {
+  
+  var viewModel: RecipesViewModelProtocol?
   
   lazy var tableView: UITableView = {
     let tableView = UITableView()
@@ -20,19 +22,31 @@ final class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupLayout()
+    self.viewModel?.fetchData()
+    fetchData()
+  }
+  
+  func fetchData() {
+    self.viewModel?.didFetchData = { [weak self] in
+      guard let self = self else { return }
+      self.tableView.reloadData()
+    }
   }
   
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    50
+    viewModel?.recipes.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: RecipeTableViewCell.identifire, for: indexPath) as? RecipeTableViewCell else {
       return UITableViewCell()
+    }
+    if let recipe = viewModel?.recipes[indexPath.row] {
+      cell.configure(with: recipe)
     }
     return cell
   }
@@ -43,7 +57,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
   
 }
 
-private extension MainViewController {
+private extension RecipesViewController {
   
   func setupLayout() {
     setupButton()

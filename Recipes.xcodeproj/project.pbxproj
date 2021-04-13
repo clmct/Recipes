@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B210EF8D26259F3000E15E69 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B210EF8C26259F3000E15E69 /* Kingfisher */; };
 		B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332C262492EE00D571A3 /* AppDelegate.swift */; };
 		B223332F262492EE00D571A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332E262492EE00D571A3 /* SceneDelegate.swift */; };
-		B2233331262492EE00D571A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2233330262492EE00D571A3 /* MainViewController.swift */; };
+		B2233331262492EE00D571A3 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2233330262492EE00D571A3 /* RecipesViewController.swift */; };
 		B2233336262492F200D571A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2233335262492F200D571A3 /* Assets.xcassets */; };
 		B2233339262492F200D571A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2233337262492F200D571A3 /* LaunchScreen.storyboard */; };
 		B223334D2624990400D571A3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223334C2624990400D571A3 /* DetailViewController.swift */; };
 		B223335226249B6500D571A3 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335126249B6500D571A3 /* Assembly.swift */; };
-		B223335526249E9100D571A3 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335426249E9000D571A3 /* RecipeTableViewCell.swift */; };
+		B223335526249E9100D571A3 /* RecipesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335426249E9000D571A3 /* RecipesTableViewCell.swift */; };
 		B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */; };
 		B223335D2624A1B600D571A3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B223335C2624A1B600D571A3 /* SnapKit */; };
 		B22333702624D4BF00D571A3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223336F2624D4BF00D571A3 /* Router.swift */; };
@@ -22,25 +23,27 @@
 		B22333762624D95E00D571A3 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22333752624D95E00D571A3 /* NetworkRouter.swift */; };
 		B223337B2624DA5B00D571A3 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223337A2624DA5B00D571A3 /* Recipes.swift */; };
 		B2FE83202625891100AC4763 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FE831F2625891100AC4763 /* Logger.swift */; };
+		B2FE832526258ED100AC4763 /* RecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FE832426258ED100AC4763 /* RecipesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B2233329262492EE00D571A3 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B223332C262492EE00D571A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B223332E262492EE00D571A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B2233330262492EE00D571A3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B2233330262492EE00D571A3 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 		B2233335262492F200D571A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2233338262492F200D571A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B223333A262492F200D571A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B223334C2624990400D571A3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B223335126249B6500D571A3 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
-		B223335426249E9000D571A3 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		B223335426249E9000D571A3 /* RecipesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewCell.swift; sourceTree = "<group>"; };
 		B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCellProtocol.swift; sourceTree = "<group>"; };
 		B223336F2624D4BF00D571A3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		B22333722624D90F00D571A3 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B22333752624D95E00D571A3 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		B223337A2624DA5B00D571A3 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		B2FE831F2625891100AC4763 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		B2FE832426258ED100AC4763 /* RecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B210EF8D26259F3000E15E69 /* Kingfisher in Frameworks */,
 				B223335D2624A1B600D571A3 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,8 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */,
-				B2233330262492EE00D571A3 /* MainViewController.swift */,
-				B223335426249E9000D571A3 /* RecipeTableViewCell.swift */,
+				B2233330262492EE00D571A3 /* RecipesViewController.swift */,
+				B2FE832426258ED100AC4763 /* RecipesViewModel.swift */,
+				B223335426249E9000D571A3 /* RecipesTableViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 			name = Recipes;
 			packageProductDependencies = (
 				B223335C2624A1B600D571A3 /* SnapKit */,
+				B210EF8C26259F3000E15E69 /* Kingfisher */,
 			);
 			productName = Recipes;
 			productReference = B2233329262492EE00D571A3 /* Recipes.app */;
@@ -189,6 +195,7 @@
 			mainGroup = B2233320262492EE00D571A3;
 			packageReferences = (
 				B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B210EF8B26259F3000E15E69 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = B223332A262492EE00D571A3 /* Products */;
 			projectDirPath = "";
@@ -217,11 +224,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B22333702624D4BF00D571A3 /* Router.swift in Sources */,
-				B2233331262492EE00D571A3 /* MainViewController.swift in Sources */,
+				B2233331262492EE00D571A3 /* RecipesViewController.swift in Sources */,
 				B223335226249B6500D571A3 /* Assembly.swift in Sources */,
 				B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */,
 				B22333732624D90F00D571A3 /* NetworkService.swift in Sources */,
-				B223335526249E9100D571A3 /* RecipeTableViewCell.swift in Sources */,
+				B2FE832526258ED100AC4763 /* RecipesViewModel.swift in Sources */,
+				B223335526249E9100D571A3 /* RecipesTableViewCell.swift in Sources */,
 				B223337B2624DA5B00D571A3 /* Recipes.swift in Sources */,
 				B2FE83202625891100AC4763 /* Logger.swift in Sources */,
 				B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */,
@@ -425,6 +433,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B210EF8B26259F3000E15E69 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.2.1;
+			};
+		};
 		B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -436,6 +452,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B210EF8C26259F3000E15E69 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B210EF8B26259F3000E15E69 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		B223335C2624A1B600D571A3 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B223335B2624A1B600D571A3 /* XCRemoteSwiftPackageReference "SnapKit" */;

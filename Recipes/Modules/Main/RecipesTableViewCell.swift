@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class RecipeTableViewCell: UITableViewCell {
   
@@ -6,7 +7,6 @@ final class RecipeTableViewCell: UITableViewCell {
   
   private lazy var imgView: UIImageView = {
     let image = UIImageView()
-    image.image = UIImage(named: "Bitmap")
     image.contentMode = .center
     image.layer.cornerRadius = 20
     image.layer.cornerCurve = .continuous
@@ -21,7 +21,6 @@ final class RecipeTableViewCell: UITableViewCell {
     title.font = .boldSystemFont(ofSize: 22)
     title.lineBreakMode = .byWordWrapping
     title.numberOfLines = 2
-    title.text = "Caramelized French Onion Dip"
     return title
   }()
   
@@ -31,7 +30,6 @@ final class RecipeTableViewCell: UITableViewCell {
     description.font = .systemFont(ofSize: 13)
     description.lineBreakMode = .byWordWrapping
     description.numberOfLines = 2
-    description.text = "Yummy home made meat loaf, great for left lovers."
     return description
   }()
   
@@ -40,7 +38,6 @@ final class RecipeTableViewCell: UITableViewCell {
     date.textColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
     date.numberOfLines = 2
     date.font = .systemFont(ofSize: 13)
-    date.text = "01.05.2018"
     return date
   }()
   
@@ -61,7 +58,29 @@ final class RecipeTableViewCell: UITableViewCell {
   
 }
 
+extension RecipeTableViewCell: ConfigurableCellProtocol {
+  typealias model = Recipe
+  
+  func configure(with model: Recipe) {
+    titleLabel.text = model.name
+    descriptionLabel.text = model.description
+    dateLabel.text = getDate(timeInterval: model.lastUpdated)
+    
+    if let image = model.images.first,
+       let url = URL(string: image) {
+      imgView.kf.setImage(with: url)
+    }
+  }
+}
+
 private extension RecipeTableViewCell {
+  
+  func getDate(timeInterval: Int) -> String {
+    let date = Date(timeIntervalSince1970: TimeInterval(timeInterval))
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd.MM.yyyy"
+    return formatter.string(from: date)
+  }
   
   func addSubviews() {
     contentView.addSubview(imgView)
@@ -75,27 +94,27 @@ private extension RecipeTableViewCell {
     imgView.snp.makeConstraints { (make) in
       make.height.equalTo(112)
       make.width.equalTo(170) 
-      make.trailing.equalTo(contentView.snp.trailing).offset(5)
+      make.trailing.equalTo(contentView.snp.trailing)
     }
     
     titleLabel.snp.makeConstraints { (make) in
       make.top.equalTo(imgView.snp.top)
       make.leading.equalTo(contentView.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading)
+      make.trailing.equalTo(imgView.snp.leading).offset(-5)
       make.height.lessThanOrEqualTo(55)
     }
     
     descriptionLabel.snp.makeConstraints { (make) in
       make.top.equalTo(titleLabel.snp.bottom).offset(6)
       make.leading.equalTo(titleLabel.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading)
+      make.trailing.equalTo(imgView.snp.leading).offset(-5)
       make.height.lessThanOrEqualTo(40)
     }
     
     dateLabel.snp.makeConstraints { (make) in
       make.bottom.equalTo(imgView.snp.bottom)
       make.leading.equalTo(titleLabel.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading)
+      make.trailing.equalTo(imgView.snp.leading).offset(-5)
     }
     
   }
