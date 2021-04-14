@@ -31,4 +31,8 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
     }
   }
   
+  func showRecipe(id: String) {
+    router.showDetailRecipe(uuid: id)
+  }
+  
 }

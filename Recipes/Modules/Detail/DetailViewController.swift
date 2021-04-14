@@ -4,6 +4,7 @@ import SnapKit
 final class DetailRecipeViewController: UIViewController {
   
   var viewModel: DetailRecipeViewModel?
+  var recipeRecommendedViewController = RecipeRecommendedViewController()
   
   private lazy var scrollView: UIScrollView = {
     let scroll = UIScrollView()
@@ -28,7 +29,6 @@ final class DetailRecipeViewController: UIViewController {
     label.textColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
     label.font = .boldSystemFont(ofSize: 28)
     label.numberOfLines = 0
-    label.text = "Caramelized French Onion Dip"
     return label
   }()
 
@@ -37,7 +37,6 @@ final class DetailRecipeViewController: UIViewController {
     label.textColor = UIColor(red: 0.611, green: 0.611, blue: 0.611, alpha: 1)
     label.font = .systemFont(ofSize: 13)
     label.numberOfLines = 0
-    label.text = "Yummy home made meat loaf, great for left lovers."
     return label
   }()
   
@@ -73,7 +72,6 @@ final class DetailRecipeViewController: UIViewController {
     label.numberOfLines = 0
     label.textColor = UIColor(red: 0.611, green: 0.611, blue: 0.611, alpha: 1)
     label.font = .systemFont(ofSize: 13)
-    label.text = "Mix thyme, cayenne, nutmeg, Panko bread crumbs, salt, and pepper into a small bowl, set aside. Mix eggs, minced garlic, minced or chopped onion, and 1/4 cup BBQ sauce in a medium bowl. \n \nBreak up ground beef so its not blocked or clumped, mix in the egg mixture until evenly distributed throughout then add bread crumb mixture until evenly distributed. Put into loaf pan."
     return label
   }()
   
@@ -99,8 +97,13 @@ final class DetailRecipeViewController: UIViewController {
     view.backgroundColor = .white
     sutupLayout()
     didUpdateViewModel()
-   
-    
+    showRecipe()
+  }
+  
+  func showRecipe() {
+    recipeRecommendedViewController.didSelect = { id in
+      self.viewModel?.showRecipe(id: id)
+    }
   }
   
   func didUpdateViewModel() {
@@ -109,15 +112,51 @@ final class DetailRecipeViewController: UIViewController {
       DispatchQueue.main.async {
         self.titleLabel.text = recipe.name
         self.descriptionLabel.text = recipe.description
-        self.instructionLabel.text = recipe.instructions
+        self.instructionLabel.text = recipe.instructions.replace()
         self.dateLabel.text = recipe.lastUpdated.getDate()
         self.setupDifficulty(difficulty: recipe.difficulty)
         self.setupPhotosScroll(count: recipe.images.count)
         if recipe.images.count <= 1 {
           self.pageControl.isHidden = true
         }
+        if recipe.similar.count != 0 {
+          self.setupRecommended()
+          self.recipeRecommendedViewController.recipesBrief = recipe.similar
+          self.recipeRecommendedViewController.didUpdate()
+        }
       }
     }
+  }
+  
+  
+  
+  func setupRecommended() {
+    
+    contentView.addSubview(recommendedTitleLabel)
+    addChild(recipeRecommendedViewController)
+    contentView.addSubview(recipeRecommendedViewController.view)
+    recipeRecommendedViewController.didMove(toParent: self)
+    
+    
+    recommendedTitleLabel.snp.makeConstraints { make in
+      make.top.equalTo(instructionLabel.snp.bottom).offset(15)
+      make.leading.equalTo(contentView).inset(24)
+      make.trailing.equalTo(contentView).inset(24)
+    }
+    
+    recipeRecommendedViewController.view.snp.makeConstraints { make in
+      make.top.equalTo(recommendedTitleLabel.snp.bottom).offset(8)
+      make.leading.trailing.equalTo(contentView)
+      make.height.equalTo(112)
+    }
+
+    contentView.snp.remakeConstraints { (make) in
+      make.edges.width.equalToSuperview()
+      make.bottom.equalTo(recipeRecommendedViewController.view.snp.bottom)
+    }
+    contentView.layoutIfNeeded()
+    scrollView.layoutIfNeeded()
+    
   }
   
   func setupDifficulty(difficulty: Int) {
@@ -176,7 +215,6 @@ private extension DetailRecipeViewController {
     contentView.addSubview(descriptionLabel)
     contentView.addSubview(difficultyTitleLabel)
     contentView.addSubview(instructionTitleLabel)
-    contentView.addSubview(recommendedTitleLabel)
     contentView.addSubview(instructionLabel)
     
     scrollView.snp.makeConstraints { make in
@@ -187,7 +225,6 @@ private extension DetailRecipeViewController {
       make.edges.width.equalToSuperview()
     }
     
-    photoScrollView.backgroundColor = .systemBlue
     photoScrollView.snp.makeConstraints { (make) in
       make.top.leading.trailing.equalTo(contentView)
       make.height.equalTo(300)
@@ -233,14 +270,8 @@ private extension DetailRecipeViewController {
       make.trailing.equalTo(contentView).inset(24)
     }
     
-    recommendedTitleLabel.snp.makeConstraints { make in
-      make.top.equalTo(instructionLabel.snp.bottom).offset(15)
-      make.leading.equalTo(contentView).inset(24)
-      make.trailing.equalTo(contentView).inset(24)
-    }
-    
     contentView.snp.makeConstraints({ (make) in
-      make.bottom.equalTo(recommendedTitleLabel.snp.bottom)
+      make.bottom.equalTo(instructionLabel.snp.bottom)
     })
     
   }
