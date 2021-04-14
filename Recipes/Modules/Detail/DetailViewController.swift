@@ -1,8 +1,9 @@
 import UIKit
 import SnapKit
 
-final class DetailViewController: UIViewController {
+final class DetailRecipeViewController: UIViewController {
   
+  var viewModel: DetailRecipeViewModel?
   
   private lazy var scrollView: UIScrollView = {
     let scroll = UIScrollView()
@@ -18,6 +19,7 @@ final class DetailViewController: UIViewController {
     let scroll = UIScrollView()
     scroll.isPagingEnabled = true
     scroll.showsHorizontalScrollIndicator = false
+    scroll.delegate = self
     return scroll
   }()
   
@@ -25,7 +27,7 @@ final class DetailViewController: UIViewController {
     let label = UILabel()
     label.textColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
     label.font = .boldSystemFont(ofSize: 28)
-    label.numberOfLines = 2
+    label.numberOfLines = 0
     label.text = "Caramelized French Onion Dip"
     return label
   }()
@@ -88,29 +90,80 @@ final class DetailViewController: UIViewController {
   private lazy var pageControl: UIPageControl = {
     let pageControl = UIPageControl(frame: .zero)
     pageControl.isEnabled = false
-    pageControl.translatesAutoresizingMaskIntoConstraints = false
-    pageControl.numberOfPages = 4
     return pageControl
   }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    navigationItem.largeTitleDisplayMode = .never
     view.backgroundColor = .white
     sutupLayout()
+    didUpdateViewModel()
+   
+    
+  }
+  
+  func didUpdateViewModel() {
+    viewModel?.didFetchData = { [weak self] recipe in
+      guard let self = self else { return }
+      DispatchQueue.main.async {
+        self.titleLabel.text = recipe.name
+        self.descriptionLabel.text = recipe.description
+        self.instructionLabel.text = recipe.instructions
+        self.dateLabel.text = recipe.lastUpdated.getDate()
+        self.setupDifficulty(difficulty: recipe.difficulty)
+        self.setupPhotosScroll(count: recipe.images.count)
+        if recipe.images.count <= 1 {
+          self.pageControl.isHidden = true
+        }
+      }
+    }
+  }
+  
+  func setupDifficulty(difficulty: Int) {
+    for i in 0..<5 {
+      let difficultyImageView = UIImageView()
+      contentView.addSubview(difficultyImageView)
+      if i < difficulty {
+        difficultyImageView.image = UIImage(named: "shape1")
+      } else {
+        difficultyImageView.image = UIImage(named: "shape0")
+      }
+      difficultyImageView.snp.makeConstraints { (make) in
+        make.top.equalTo(difficultyTitleLabel.snp.bottom).offset(8)
+        make.width.height.equalTo(20)
+        make.leading.equalTo(40 * i + 24)
+      }
+    }
+  }
+  
+  func setupPhotosScroll(count: Int) {
+    for i in 0..<count {
+      let imageView = UIImageView()
+      if let url = URL(string: (self.viewModel?.recipe?.images[i])!) {
+        imageView.kf.setImage(with: url)
+      }
+      imageView.contentMode = .scaleAspectFill
+      let xPosition = self.photoScrollView.frame.width * CGFloat(i)
+      imageView.frame = CGRect(x: xPosition, y: 0,
+                               width: self.photoScrollView.frame.width,
+                               height: self.photoScrollView.frame.height)
+      
+      photoScrollView.contentSize.width =  photoScrollView.frame.width * CGFloat(1 + i)
+      photoScrollView.addSubview(imageView)
+      pageControl.numberOfPages = count
+    }
   }
 }
 
-
-
-extension DetailViewController: UIScrollViewDelegate {
+extension DetailRecipeViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let position = Int(scrollView.contentOffset.x / photoScrollView.frame.width)
-    self.pageControl.currentPage = position
+    pageControl.currentPage = position
   }
 }
 
-
-private extension DetailViewController {
+private extension DetailRecipeViewController {
   
   func sutupLayout() {
     
@@ -127,7 +180,7 @@ private extension DetailViewController {
     contentView.addSubview(instructionLabel)
     
     scrollView.snp.makeConstraints { make in
-      make.edges.equalTo(view).inset(UIEdgeInsets.zero)
+      make.edges.equalToSuperview()
     }
     
     contentView.snp.makeConstraints { make in
@@ -148,7 +201,7 @@ private extension DetailViewController {
     titleLabel.snp.makeConstraints { make in
       make.top.equalTo(photoScrollView.snp.bottom).offset(20)
       make.leading.equalTo(contentView).inset(20)
-      make.trailing.equalTo(dateLabel.snp.leading)
+      make.trailing.equalTo(contentView).inset(70 + 24)
     }
     
     dateLabel.snp.makeConstraints { make in
@@ -186,25 +239,9 @@ private extension DetailViewController {
       make.trailing.equalTo(contentView).inset(24)
     }
     
-    for i in 0..<5 {
-      let difficultyImageView = UIImageView()
-      contentView.addSubview(difficultyImageView)
-      if i < 3 {
-        difficultyImageView.image = UIImage(named: "shape1")
-      } else {
-        difficultyImageView.image = UIImage(named: "shape0")
-      }
-      difficultyImageView.snp.makeConstraints { (make) in
-        make.top.equalTo(difficultyTitleLabel.snp.bottom).offset(8)
-        make.width.height.equalTo(20)
-        make.leading.equalTo(40 * i + 24)
-      }
-    }
-    
     contentView.snp.makeConstraints({ (make) in
       make.bottom.equalTo(recommendedTitleLabel.snp.bottom)
     })
-    
     
   }
   

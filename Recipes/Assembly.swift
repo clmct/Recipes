@@ -2,22 +2,25 @@ import UIKit
 
 protocol AssemblyProtocol {
   func createMainModule(router: RouterProtocol) -> UIViewController
-  func createDetailModule() -> UIViewController
+  func createDetailModule(uuid: String,
+                          router: RouterProtocol) -> UIViewController
 }
 
 final class Assembly: AssemblyProtocol {
   
+  let networkService = NetworkService()
+  
   func createMainModule(router: RouterProtocol) -> UIViewController {
-    let n = NetworkService()
-    
     let viewController = RecipesViewController()
-    let viewModel = RecipesViewModel(networkService: n, router: router)
+    let viewModel = RecipesViewModel(networkService: networkService, router: router)
     viewController.viewModel = viewModel
     return viewController
   }
   
-  func createDetailModule() -> UIViewController {
-    let viewController = DetailViewController()
+  func createDetailModule(uuid: String, router: RouterProtocol) -> UIViewController {
+    let viewController = DetailRecipeViewController()
+    let viewModel = DetailRecipeViewModel(uuid: uuid, networkService: networkService, router: router)
+    viewController.viewModel = viewModel
     return viewController
   }
   

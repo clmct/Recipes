@@ -8,7 +8,7 @@ final class RecipeTableViewCell: UITableViewCell {
   private lazy var imgView: UIImageView = {
     let image = UIImageView()
     image.contentMode = .center
-    image.layer.cornerRadius = 20
+    image.layer.cornerRadius = 10
     image.layer.cornerCurve = .continuous
     image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     image.layer.masksToBounds = true
@@ -59,12 +59,11 @@ final class RecipeTableViewCell: UITableViewCell {
 }
 
 extension RecipeTableViewCell: ConfigurableCellProtocol {
-  typealias model = Recipe
-  
-  func configure(with model: Recipe) {
+  typealias model = RecipeListElement
+  func configure(with model: RecipeListElement) {
     titleLabel.text = model.name
     descriptionLabel.text = model.description
-    dateLabel.text = getDate(timeInterval: model.lastUpdated)
+    dateLabel.text = model.lastUpdated.getDate()
     
     if let image = model.images.first,
        let url = URL(string: image) {
@@ -75,12 +74,7 @@ extension RecipeTableViewCell: ConfigurableCellProtocol {
 
 private extension RecipeTableViewCell {
   
-  func getDate(timeInterval: Int) -> String {
-    let date = Date(timeIntervalSince1970: TimeInterval(timeInterval))
-    let formatter = DateFormatter()
-    formatter.dateFormat = "dd.MM.yyyy"
-    return formatter.string(from: date)
-  }
+
   
   func addSubviews() {
     contentView.addSubview(imgView)
@@ -93,31 +87,32 @@ private extension RecipeTableViewCell {
     
     imgView.snp.makeConstraints { (make) in
       make.height.equalTo(112)
-      make.width.equalTo(170) 
+      make.width.equalTo(160)
       make.trailing.equalTo(contentView.snp.trailing)
     }
     
     titleLabel.snp.makeConstraints { (make) in
       make.top.equalTo(imgView.snp.top)
       make.leading.equalTo(contentView.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading).offset(-5)
+      make.trailing.equalTo(imgView.snp.leading).offset(-15)
       make.height.lessThanOrEqualTo(55)
     }
     
     descriptionLabel.snp.makeConstraints { (make) in
       make.top.equalTo(titleLabel.snp.bottom).offset(6)
       make.leading.equalTo(titleLabel.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading).offset(-5)
+      make.trailing.equalTo(imgView.snp.leading).offset(-15)
       make.height.lessThanOrEqualTo(40)
     }
     
     dateLabel.snp.makeConstraints { (make) in
       make.bottom.equalTo(imgView.snp.bottom)
       make.leading.equalTo(titleLabel.snp.leading)
-      make.trailing.equalTo(imgView.snp.leading).offset(-5)
+      make.trailing.equalTo(imgView.snp.leading).offset(-15)
     }
     
   }
   
 }
+
 

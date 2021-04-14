@@ -6,9 +6,10 @@ enum SortType {
 }
 
 protocol RecipesViewModelProtocol {
-  var didFetchData: (() -> ())? { get set }
+  var didUpdateViewModel: (() -> ())? { get set }
+  func didSelect(index: Int)
   func fetchData()
-  var filteredRecipes: [Recipe] { get set }
+  var filteredRecipes: [RecipeListElement] { get set }
   func updateSearchResults(searchController: UISearchController)
   func sort(type: SortType)
 }
@@ -23,10 +24,14 @@ final class RecipesViewModel: RecipesViewModelProtocol {
     self.router = router
   }
   
-  var didFetchData: (() -> ())?
-  var recipes = [Recipe]()
-  var filteredRecipes = [Recipe]()
+  var didUpdateViewModel: (() -> ())?
+  var recipes = [RecipeListElement]()
+  var filteredRecipes = [RecipeListElement]()
   var isFiltering: Bool = false
+  
+  func didSelect(index: Int) {
+    router.showDetailRecipe(uuid: filteredRecipes[index].uuid)
+  }
   
   func sort(type: SortType) {
     switch type {
@@ -35,6 +40,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
     case .date:
       filteredRecipes.sort { $0.lastUpdated > $1.lastUpdated }
     }
+    self.didUpdateViewModel?()
   }
   
   func fetchData() {
@@ -43,6 +49,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
       case.success(let recipes):
         self.recipes = recipes.recipes
         self.filteredRecipes = recipes.recipes.sorted { $0.name < $1.name }
+        self.didUpdateViewModel?()
       case .failure(let error):
         print(error)
       }
@@ -54,6 +61,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
     let index = searchController.searchBar.selectedScopeButtonIndex
     if text == "" {
       filteredRecipes = recipes
+      self.didUpdateViewModel?()
       return
     }
     
@@ -73,7 +81,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
         return true
       }
     })
-    
+    self.didUpdateViewModel?()
   }
   
 }

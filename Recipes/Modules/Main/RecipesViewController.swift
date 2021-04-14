@@ -21,15 +21,21 @@ final class RecipesViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    title = "Recipes"
+    navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
+    navigationItem.largeTitleDisplayMode = .always
+    navigationController?.navigationBar.prefersLargeTitles = true
     setupLayout()
-    self.viewModel?.fetchData()
-    fetchData()
+    viewModel?.fetchData()
+    didUpdateViewModel()
   }
   
-  func fetchData() {
-    self.viewModel?.didFetchData = { [weak self] in
+  func didUpdateViewModel() {
+    self.viewModel?.didUpdateViewModel = { [weak self] in
       guard let self = self else { return }
-      self.tableView.reloadData()
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }
   }
   
@@ -39,10 +45,7 @@ final class RecipesViewController: UIViewController {
 extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-    print(viewModel?.filteredRecipes.count ?? 0)
-    
-    return viewModel?.filteredRecipes.count ?? 0
+    viewModel?.filteredRecipes.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,13 +62,17 @@ extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
     112 + 26
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    viewModel?.didSelect(index: indexPath.row)
+  }
+  
 }
 
 // MARK: Search Results Updating
 extension RecipesViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     viewModel?.updateSearchResults(searchController: searchController)
-    tableView.reloadData()
   }
 }
 
@@ -76,16 +83,13 @@ private extension RecipesViewController {
     
     actionSheet.addAction(UIAlertAction(title: "Sort by Name", style: .default, handler: { _ in
       self.viewModel?.sort(type: .name)
-      self.tableView.reloadData()
     }))
     
     actionSheet.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: { _ in
       self.viewModel?.sort(type: .date)
-      self.tableView.reloadData()
     }))
     
     actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    
     present(actionSheet, animated: true)
   }
   
@@ -105,8 +109,6 @@ private extension RecipesViewController {
   }
   
   func setupSearchController() {
-    title = "Recipes"
-    navigationController?.navigationBar.prefersLargeTitles = true
     definesPresentationContext = true
     navigationItem.hidesSearchBarWhenScrolling = false
     navigationItem.searchController = self.searchController

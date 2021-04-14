@@ -2,7 +2,7 @@ import UIKit
 
 protocol RouterProtocol {
   func showRecipes()
-  func showDetailRecipe()
+  func showDetailRecipe(uuid: String)
 }
 
 final class Router: RouterProtocol {
@@ -18,13 +18,13 @@ final class Router: RouterProtocol {
   func showRecipes() {
     let viewController = assembly.createMainModule(router: self)
     navigationController.viewControllers = [viewController]
-    
-    showDetailRecipe()
   }
   
-  func showDetailRecipe() {
-    let viewController = assembly.createDetailModule()
+  func showDetailRecipe(uuid: String) {
+    let viewController = assembly.createDetailModule(uuid: uuid,
+                                                     router: self)
     navigationController.pushViewController(viewController, animated: true)
+    
   }
   
 }

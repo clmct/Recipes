@@ -3,10 +3,11 @@ import Foundation
 enum NetworkRouter {
   
   case getRecipes
+  case getRecipe(id: String)
   
   var scheme: String {
     switch self {
-    case .getRecipes:
+    case .getRecipes, .getRecipe:
       return "https"
     }
   }
@@ -14,7 +15,7 @@ enum NetworkRouter {
   var host: String {
     let base = "test.kode-t.ru"
     switch self {
-    case .getRecipes:
+    case .getRecipes, .getRecipe:
       return base
     }
   }
@@ -22,15 +23,18 @@ enum NetworkRouter {
   var path: String {
     switch self {
     case .getRecipes:
-      return "/recipes.json"
+      return "/recipes"
+    case .getRecipe(let id):
+      return "/recipes/" + id
     }
   }
   
   var method: String {
-      switch self {
-        case .getRecipes:
-          return "GET"
-      }
+    switch self {
+    case .getRecipes, .getRecipe:
+      return "GET"
     }
+  }
+  
 }
 

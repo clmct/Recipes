@@ -1,10 +1,10 @@
 import Foundation
 
 struct Recipes: Codable {
-  let recipes: [Recipe]
+  let recipes: [RecipeListElement]
 }
 
-struct Recipe: Codable, Hashable {
+struct RecipeListElement: Codable, Hashable {
   let uuid: String
   let name: String
   let images: [String]
@@ -12,13 +12,25 @@ struct Recipe: Codable, Hashable {
   let description: String?
   let instructions: String
   let difficulty: Int
-  
-//  static func <(lhs: Recipe, rhs: Recipe) -> Bool {
-//    return lhs.name < rhs.name
-//  }
-//  
-//  static func >(lhs: Recipe, rhs: Recipe) -> Bool {
-//    return lhs.lastUpdated > rhs.lastUpdated
-//  }
 }
 
+struct Recipe: Codable {
+  let recipe: RecipeElement
+}
+
+struct RecipeElement: Codable {
+  let uuid: String
+  let name: String
+  let images: [String]
+  let lastUpdated: Int
+  let description: String?
+  let instructions: String
+  let difficulty: Int
+  let similar: [RecipeBrief]
+}
+
+struct RecipeBrief: Codable {
+  let uuid: String
+  let name: String
+  let image: String
+}
