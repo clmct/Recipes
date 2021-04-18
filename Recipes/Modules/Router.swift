@@ -3,6 +3,7 @@ import UIKit
 protocol RouterProtocol {
   func showRecipes()
   func showDetailRecipe(uuid: String)
+  func showPhoto(image: UIImage)
 }
 
 final class Router: RouterProtocol {
@@ -24,7 +25,12 @@ final class Router: RouterProtocol {
     let viewController = assembly.createDetailModule(uuid: uuid,
                                                      router: self)
     navigationController.pushViewController(viewController, animated: true)
-    
+  }
+  
+  func showPhoto(image: UIImage) {
+    let viewController = assembly.createPhotoModule(image: image)
+    viewController.modalPresentationStyle = .fullScreen
+    navigationController.present(viewController, animated: true, completion: nil)
   }
   
 }

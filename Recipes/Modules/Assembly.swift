@@ -4,6 +4,7 @@ protocol AssemblyProtocol {
   func createMainModule(router: RouterProtocol) -> UIViewController
   func createDetailModule(uuid: String,
                           router: RouterProtocol) -> UIViewController
+  func createPhotoModule(image: UIImage) -> UIViewController
 }
 
 final class Assembly: AssemblyProtocol {
@@ -20,6 +21,13 @@ final class Assembly: AssemblyProtocol {
   func createDetailModule(uuid: String, router: RouterProtocol) -> UIViewController {
     let viewController = DetailRecipeViewController()
     let viewModel = DetailRecipeViewModel(uuid: uuid, networkService: networkService, router: router)
+    viewController.viewModel = viewModel
+    return viewController
+  }
+  
+  func createPhotoModule(image: UIImage) -> UIViewController {
+    let viewController = PhotoViewController(image: image)
+    let viewModel = PhotoViewModel()
     viewController.viewModel = viewModel
     return viewController
   }

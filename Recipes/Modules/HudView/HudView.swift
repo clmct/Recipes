@@ -20,7 +20,7 @@ final class HudView: UIView {
   }()
   
   lazy var refreshButton: UIButton = {
-    let button = UIButton()
+    let button = UIButton(type: .system)
     button.setTitle("Refresh", for: .normal)
     button.setTitleColor(UIColor(red: 0.29, green: 0.565, blue: 0.886, alpha: 1), for: .normal)
     button.layer.cornerRadius = 22

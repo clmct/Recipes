@@ -49,10 +49,12 @@ extension DetailRecipeViewController {
   func setupPhotosScroll(count: Int) {
     for i in 0..<count {
       let imageView = UIImageView()
-      
       if let images = viewModel?.recipe?.images,
         let url = URL(string: (images[i])) {
         imageView.kf.setImage(with: url)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
       }
       imageView.contentMode = .scaleAspectFill
       let xPosition = photoScrollView.frame.width * CGFloat(i)

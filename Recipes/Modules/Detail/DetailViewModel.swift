@@ -1,10 +1,12 @@
-import Foundation
+import UIKit
 
 protocol DetailRecipeViewModelProtocol {
   var recipe: RecipeElement? { get }
   var didFetchData: ((RecipeElement) -> ())? { get set }
   var didHud: ((HudType) -> ())? { get set }
   func fetchData()
+  func showRecipe(id: String)
+  func showPhoto(image: UIImage)
 }
 
 final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
@@ -37,6 +39,10 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
   
   func showRecipe(id: String) {
     router.showDetailRecipe(uuid: id)
+  }
+  
+  func showPhoto(image: UIImage) {
+    router.showPhoto(image: image)
   }
   
 }

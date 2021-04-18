@@ -3,7 +3,7 @@ import SnapKit
 
 final class DetailRecipeViewController: UIViewController {
   
-  var viewModel: DetailRecipeViewModel?
+  var viewModel: DetailRecipeViewModelProtocol?
   var recipeRecommendedViewController = RecipeRecommendedViewController()
   
   lazy var scrollView: UIScrollView = {
@@ -87,6 +87,8 @@ final class DetailRecipeViewController: UIViewController {
     return pageControl
   }()
   
+//  let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.largeTitleDisplayMode = .never
@@ -94,6 +96,15 @@ final class DetailRecipeViewController: UIViewController {
     sutupLayout()
     didUpdateViewModel()
     viewModel?.fetchData()
+  }
+  
+  @objc func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
+    guard let tappedImage = tapGestureRecognizer.view as? UIImageView else {
+      return
+    }
+    if let image = tappedImage.image {
+      viewModel?.showPhoto(image: image)
+    }
   }
   
 }
