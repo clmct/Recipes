@@ -17,15 +17,15 @@ final class RecipeRecommendedViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupCollectionView()
+    setupCollection()
     setupLayout()
   }
   
-  func didUpdate() {
+  func reloadData() {
     collectionView.reloadData()
   }
   
-  func setupCollectionView() {
+  func setupCollection() {
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(RecipeRecommendedCollectionViewCell.self,
@@ -44,7 +44,7 @@ final class RecipeRecommendedViewController: UIViewController {
   
 }
 
-
+// MARK: Data Source && Delegate
 extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     recipesBrief?.count ?? 0
@@ -61,13 +61,14 @@ extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectio
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let id = recipesBrief![indexPath.row].uuid
-    didSelect?(id)
+    if let recipes = recipesBrief {
+      let id = recipes[indexPath.row].uuid
+      didSelect?(id)
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     CGSize(width: 204, height: 112)
   }
-  
   
 }

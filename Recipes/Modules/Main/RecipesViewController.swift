@@ -11,6 +11,12 @@ final class RecipesViewController: UIViewController {
     return tableView
   }()
   
+  lazy var loader: UIActivityIndicatorView = {
+    let view = UIActivityIndicatorView(style: .large)
+    view.startAnimating()
+    return view
+  }()
+  
   lazy var searchController: UISearchController = {
     let searchController = UISearchController()
     searchController.searchBar.autocapitalizationType = .none
@@ -26,22 +32,41 @@ final class RecipesViewController: UIViewController {
     navigationItem.largeTitleDisplayMode = .always
     navigationController?.navigationBar.prefersLargeTitles = true
     setupLayout()
-    viewModel?.fetchData()
     didUpdateViewModel()
+    viewModel?.fetchData()
   }
   
   func didUpdateViewModel() {
-    self.viewModel?.didUpdateViewModel = { [weak self] in
+    viewModel?.didUpdateViewModel = { [weak self] in
       guard let self = self else { return }
       DispatchQueue.main.async {
         self.tableView.reloadData()
       }
     }
+   
+    var hud: HudView?
+    viewModel?.didHud = { [weak self] type in
+      guard let self = self else { return }
+      DispatchQueue.main.async {
+        if let h = hud {
+          h.didClose = {
+            hud = nil
+          }
+          h.didRefresh = {
+            hud = nil
+            self.viewModel?.fetchData()
+          }
+          h.action(type: type)
+        } else {
+          hud = HudView(inView: self.navigationController?.view ?? self.view, type: type)
+        }
+      }
+    }
   }
-  
 }
 
-// MARK: Data Source
+
+// MARK: Data Source && Delegate
 extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,19 +88,19 @@ extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
     viewModel?.didSelect(index: indexPath.row)
   }
   
 }
 
-// MARK: Search Results Updating
+// MARK: UISearchResultsUpdating
 extension RecipesViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     viewModel?.updateSearchResults(searchController: searchController)
   }
 }
 
+// MARK: Layout
 private extension RecipesViewController {
   
   func createActionSheet() {
@@ -97,6 +122,13 @@ private extension RecipesViewController {
     setupButton()
     setupSearchController()
     setupTableView()
+  }
+  func setupLoader() {
+    view.addSubview(loader)
+    view.bringSubviewToFront(loader)
+    loader.snp.makeConstraints { (make) in
+      make.centerX.centerY.equalToSuperview()
+    }
   }
   
   func setupButton() {
@@ -123,7 +155,6 @@ private extension RecipesViewController {
     tableView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
     }
-  }
-  
+  } 
 }
 

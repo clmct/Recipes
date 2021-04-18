@@ -33,7 +33,6 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
   }
   
   func setupLayput() {
-    
     contentView.addSubview(imgView)
     imgView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
@@ -43,14 +42,11 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
     titleLabel.snp.makeConstraints { (make) in
       make.leading.top.equalToSuperview().inset(8)
     }
-    
   }
-  
 }
 
 
 extension RecipeRecommendedCollectionViewCell: ConfigurableCellProtocol {
-  
   typealias model = RecipeBrief
   
   func configure(with model: RecipeBrief) {

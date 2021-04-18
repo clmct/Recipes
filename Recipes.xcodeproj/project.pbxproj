@@ -22,6 +22,8 @@
 		B22333732624D90F00D571A3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22333722624D90F00D571A3 /* NetworkService.swift */; };
 		B22333762624D95E00D571A3 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22333752624D95E00D571A3 /* NetworkRouter.swift */; };
 		B223337B2624DA5B00D571A3 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223337A2624DA5B00D571A3 /* Recipes.swift */; };
+		B2AA8F92262AEEEE00C8F2D2 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AA8F91262AEEEE00C8F2D2 /* HudView.swift */; };
+		B2AA8FA4262C039500C8F2D2 /* DetailViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AA8FA3262C039500C8F2D2 /* DetailViewController+Layout.swift */; };
 		B2B347DE2625FE9900B94D05 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B347DD2625FE9900B94D05 /* DetailViewModel.swift */; };
 		B2B6BFE52626C441005FA6AF /* Int+getDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B6BFE42626C441005FA6AF /* Int+getDate.swift */; };
 		B2B6BFED2626D774005FA6AF /* RecipeRecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B6BFEC2626D774005FA6AF /* RecipeRecommendedViewController.swift */; };
@@ -47,6 +49,8 @@
 		B22333722624D90F00D571A3 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B22333752624D95E00D571A3 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		B223337A2624DA5B00D571A3 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		B2AA8F91262AEEEE00C8F2D2 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		B2AA8FA3262C039500C8F2D2 /* DetailViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+Layout.swift"; sourceTree = "<group>"; };
 		B2B347DD2625FE9900B94D05 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		B2B6BFE42626C441005FA6AF /* Int+getDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+getDate.swift"; sourceTree = "<group>"; };
 		B2B6BFEC2626D774005FA6AF /* RecipeRecommendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRecommendedViewController.swift; sourceTree = "<group>"; };
@@ -88,15 +92,12 @@
 		B223332B262492EE00D571A3 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				B223332C262492EE00D571A3 /* AppDelegate.swift */,
-				B223332E262492EE00D571A3 /* SceneDelegate.swift */,
-				B223335126249B6500D571A3 /* Assembly.swift */,
-				B223336F2624D4BF00D571A3 /* Router.swift */,
+				B2AA8F9D262C02AC00C8F2D2 /* SuppotingFiles */,
 				B22333472624988D00D571A3 /* Modules */,
 				B2FE831B2625873A00AC4763 /* Services */,
 				B2FE831D2625874F00AC4763 /* Entities */,
 				B2B6BFE92626C5A3005FA6AF /* Extensions */,
-				B2FE831F2625891100AC4763 /* Logger.swift */,
+				B2AA8F9B262C023200C8F2D2 /* Logger */,
 				B2233335262492F200D571A3 /* Assets.xcassets */,
 				B2233337262492F200D571A3 /* LaunchScreen.storyboard */,
 				B223333A262492F200D571A3 /* Info.plist */,
@@ -107,8 +108,11 @@
 		B22333472624988D00D571A3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B223335126249B6500D571A3 /* Assembly.swift */,
+				B223336F2624D4BF00D571A3 /* Router.swift */,
 				B2233349262498A600D571A3 /* Main */,
 				B223334B262498AE00D571A3 /* Detail */,
+				B2AA8F98262C01AF00C8F2D2 /* HudView */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -128,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B223334C2624990400D571A3 /* DetailViewController.swift */,
+				B2AA8FA3262C039500C8F2D2 /* DetailViewController+Layout.swift */,
 				B2B347DD2625FE9900B94D05 /* DetailViewModel.swift */,
 				B2B6BFEC2626D774005FA6AF /* RecipeRecommendedViewController.swift */,
 				B2B6BFEF2626DB22005FA6AF /* RecipeRecommendedCollectionViewCell.swift */,
@@ -142,6 +147,31 @@
 				B22333752624D95E00D571A3 /* NetworkRouter.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		B2AA8F98262C01AF00C8F2D2 /* HudView */ = {
+			isa = PBXGroup;
+			children = (
+				B2AA8F91262AEEEE00C8F2D2 /* HudView.swift */,
+			);
+			path = HudView;
+			sourceTree = "<group>";
+		};
+		B2AA8F9B262C023200C8F2D2 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				B2FE831F2625891100AC4763 /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		B2AA8F9D262C02AC00C8F2D2 /* SuppotingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B223332C262492EE00D571A3 /* AppDelegate.swift */,
+				B223332E262492EE00D571A3 /* SceneDelegate.swift */,
+			);
+			path = SuppotingFiles;
 			sourceTree = "<group>";
 		};
 		B2B6BFE92626C5A3005FA6AF /* Extensions */ = {
@@ -248,6 +278,7 @@
 			files = (
 				B22333702624D4BF00D571A3 /* Router.swift in Sources */,
 				B2233331262492EE00D571A3 /* RecipesViewController.swift in Sources */,
+				B2AA8F92262AEEEE00C8F2D2 /* HudView.swift in Sources */,
 				B223335226249B6500D571A3 /* Assembly.swift in Sources */,
 				B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */,
 				B22333732624D90F00D571A3 /* NetworkService.swift in Sources */,
@@ -258,6 +289,7 @@
 				B2B6BFE52626C441005FA6AF /* Int+getDate.swift in Sources */,
 				B2B6BFED2626D774005FA6AF /* RecipeRecommendedViewController.swift in Sources */,
 				B2B6BFF02626DB22005FA6AF /* RecipeRecommendedCollectionViewCell.swift in Sources */,
+				B2AA8FA4262C039500C8F2D2 /* DetailViewController+Layout.swift in Sources */,
 				B2B347DE2625FE9900B94D05 /* DetailViewModel.swift in Sources */,
 				B223335826249EBC00D571A3 /* ConfigurableCellProtocol.swift in Sources */,
 				B22333762624D95E00D571A3 /* NetworkRouter.swift in Sources */,

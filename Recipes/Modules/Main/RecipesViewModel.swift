@@ -7,6 +7,7 @@ enum SortType {
 
 protocol RecipesViewModelProtocol {
   var didUpdateViewModel: (() -> ())? { get set }
+  var didHud: ((HudType) -> ())? { get set }
   func didSelect(index: Int)
   func fetchData()
   var filteredRecipes: [RecipeListElement] { get set }
@@ -15,6 +16,8 @@ protocol RecipesViewModelProtocol {
 }
 
 final class RecipesViewModel: RecipesViewModelProtocol {
+  var didHud: ((HudType) -> ())?
+  
   
   let networkService: NetworkServiceProtocol
   let router: RouterProtocol
@@ -44,14 +47,16 @@ final class RecipesViewModel: RecipesViewModelProtocol {
   }
   
   func fetchData() {
-    networkService.fetch(router: .getRecipes) { (result: Result<Recipes, Error>) in
+    self.didHud?(.loader(type: .start))
+    networkService.fetch(router: .getRecipes) { (result: Result<Recipes, NetworkError>) in
       switch result {
       case.success(let recipes):
         self.recipes = recipes.recipes
         self.filteredRecipes = recipes.recipes.sorted { $0.name < $1.name }
         self.didUpdateViewModel?()
+        self.didHud?(.loader(type: .stop))
       case .failure(let error):
-        print(error)
+        self.didHud?(.alert(type: error))
       }
     }
   }
