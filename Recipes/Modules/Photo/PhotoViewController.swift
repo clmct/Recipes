@@ -3,7 +3,7 @@ import SnapKit
 
 final class PhotoViewController: UIViewController {
   
-  var viewModel = PhotoViewModel()
+  var viewModel: PhotoViewModelProtocol?
   
   private lazy var imgView: UIImageView = {
     let image = UIImageView()
@@ -49,7 +49,7 @@ final class PhotoViewController: UIViewController {
   
   @objc func saveAction() {
     guard let image = imgView.image else { return }
-    viewModel.save(photo: image) { [weak self] (_, error) in
+    viewModel?.save(photo: image) { [weak self] (_, error) in
       DispatchQueue.main.async {
         self?.alert(error: error)
       }

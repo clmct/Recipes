@@ -79,13 +79,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B21A39A3262C7E1A006342F9 /* PhotoModule */ = {
+		B21A39A3262C7E1A006342F9 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
 				B21A3994262C4FE2006342F9 /* PhotoViewController.swift */,
 				B21A3997262C5D5C006342F9 /* PhotoViewModel.swift */,
 			);
-			path = PhotoModule;
+			path = Photo;
 			sourceTree = "<group>";
 		};
 		B2233320262492EE00D571A3 = {
@@ -128,7 +128,7 @@
 				B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */,
 				B2233349262498A600D571A3 /* Main */,
 				B223334B262498AE00D571A3 /* Detail */,
-				B21A39A3262C7E1A006342F9 /* PhotoModule */,
+				B21A39A3262C7E1A006342F9 /* Photo */,
 				B2AA8F98262C01AF00C8F2D2 /* HudView */,
 			);
 			path = Modules;
