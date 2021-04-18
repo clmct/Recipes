@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B210EF8D26259F3000E15E69 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B210EF8C26259F3000E15E69 /* Kingfisher */; };
+		B21A398E262C491F006342F9 /* UITableView+deselect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21A398D262C491F006342F9 /* UITableView+deselect.swift */; };
 		B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332C262492EE00D571A3 /* AppDelegate.swift */; };
 		B223332F262492EE00D571A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B223332E262492EE00D571A3 /* SceneDelegate.swift */; };
 		B2233331262492EE00D571A3 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2233330262492EE00D571A3 /* RecipesViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B21A398D262C491F006342F9 /* UITableView+deselect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+deselect.swift"; sourceTree = "<group>"; };
 		B2233329262492EE00D571A3 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B223332C262492EE00D571A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B223332E262492EE00D571A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				B223335126249B6500D571A3 /* Assembly.swift */,
 				B223336F2624D4BF00D571A3 /* Router.swift */,
+				B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */,
 				B2233349262498A600D571A3 /* Main */,
 				B223334B262498AE00D571A3 /* Detail */,
 				B2AA8F98262C01AF00C8F2D2 /* HudView */,
@@ -120,7 +123,6 @@
 		B2233349262498A600D571A3 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				B223335726249EBC00D571A3 /* ConfigurableCellProtocol.swift */,
 				B2233330262492EE00D571A3 /* RecipesViewController.swift */,
 				B2FE832426258ED100AC4763 /* RecipesViewModel.swift */,
 				B223335426249E9000D571A3 /* RecipesTableViewCell.swift */,
@@ -179,6 +181,7 @@
 			children = (
 				B2B6BFE42626C441005FA6AF /* Int+getDate.swift */,
 				B2B6BFF42626F7B2005FA6AF /* String+replace.swift */,
+				B21A398D262C491F006342F9 /* UITableView+deselect.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				B2AA8F92262AEEEE00C8F2D2 /* HudView.swift in Sources */,
 				B223335226249B6500D571A3 /* Assembly.swift in Sources */,
 				B223332D262492EE00D571A3 /* AppDelegate.swift in Sources */,
+				B21A398E262C491F006342F9 /* UITableView+deselect.swift in Sources */,
 				B22333732624D90F00D571A3 /* NetworkService.swift in Sources */,
 				B2FE832526258ED100AC4763 /* RecipesViewModel.swift in Sources */,
 				B223335526249E9100D571A3 /* RecipesTableViewCell.swift in Sources */,

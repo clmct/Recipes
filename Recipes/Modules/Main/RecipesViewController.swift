@@ -36,6 +36,11 @@ final class RecipesViewController: UIViewController {
     viewModel?.fetchData()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tableView.deselectSelectedRow(animated: animated)
+  }
+  
   func didUpdateViewModel() {
     viewModel?.didUpdateViewModel = { [weak self] in
       guard let self = self else { return }

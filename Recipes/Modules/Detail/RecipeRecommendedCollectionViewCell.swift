@@ -8,7 +8,6 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
   private lazy var imgView: UIImageView = {
     let image = UIImageView()
     image.contentMode = .center
-    image.image = UIImage(named: "Bitmap")
     image.layer.cornerRadius = 10
     image.layer.cornerCurve = .continuous
     image.layer.masksToBounds = true
@@ -17,7 +16,6 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
   
   private lazy var titleLabel: UILabel = {
     let title = UILabel()
-    title.text = "Banana Outmeal"
     title.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     title.font = .systemFont(ofSize: 16)
     return title

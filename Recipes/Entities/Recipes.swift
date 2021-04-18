@@ -4,7 +4,7 @@ struct Recipes: Codable {
   let recipes: [RecipeListElement]
 }
 
-struct RecipeListElement: Codable, Hashable {
+struct RecipeListElement: Codable {
   let uuid: String
   let name: String
   let images: [String]

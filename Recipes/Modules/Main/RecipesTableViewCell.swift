@@ -44,11 +44,11 @@ final class RecipeTableViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     addSubviews()
+    setupLayout()
   }
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    setupLayout()
     contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 13, left: 16, bottom: 13, right: 0))
   }
   
@@ -73,8 +73,6 @@ extension RecipeTableViewCell: ConfigurableCellProtocol {
 }
 
 private extension RecipeTableViewCell {
-  
-
   
   func addSubviews() {
     contentView.addSubview(imgView)

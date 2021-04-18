@@ -40,7 +40,7 @@ final class NetworkService: NetworkServiceProtocol {
       
       guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
         completion(.failure(.serverResponse))
-        Logger.serverError(messageLog: "response errer, status is not succes")
+        Logger.serverError(messageLog: "response error, status is not succes")
         return
       }
       
