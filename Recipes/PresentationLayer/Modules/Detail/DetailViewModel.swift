@@ -3,7 +3,8 @@ import UIKit
 protocol DetailRecipeViewModelProtocol {
   var recipe: RecipeElement? { get }
   var didFetchData: ((RecipeElement) -> ())? { get set }
-  var didHud: ((HudType) -> ())? { get set }
+  var didRequestShowHUD: ((NetworkError) -> ())? { get set }
+  var didRequestLoader: ((LoaderAction) -> ())? { get set }
   func fetchData()
   func showRecipe(id: String)
   func showPhoto(image: UIImage)
@@ -12,10 +13,11 @@ protocol DetailRecipeViewModelProtocol {
 final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
   var uuid: String
   let networkService: NetworkServiceProtocol
-  let router: RouterProtocol
+  var router: RouterProtocol
   var recipe: RecipeElement?
   var didFetchData: ((RecipeElement) -> ())?
-  var didHud: ((HudType) -> ())?
+  var didRequestShowHUD: ((NetworkError) -> ())?
+  var didRequestLoader: ((LoaderAction) -> ())?
   
   init(uuid: String, networkService: NetworkServiceProtocol, router: RouterProtocol) {
     self.uuid = uuid
@@ -24,15 +26,20 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
   }
   
   func fetchData() {
-    self.didHud?(.loader(type: .start))
-    networkService.fetch(router: .getRecipe(id: uuid)) { (result: Result<Recipe, NetworkError>) in
+    self.didRequestLoader?(.start)
+    networkService.getRecipe(id: uuid) { (result: Result<Recipe, NetworkError>) in
       switch result {
       case.success(let recipe):
         self.recipe = recipe.recipe
-        self.didFetchData?(recipe.recipe)
-        self.didHud?(.loader(type: .stop))
+        DispatchQueue.main.async {
+          self.didFetchData?(recipe.recipe)
+          self.didRequestLoader?(.stop)
+        }
       case .failure(let error):
-        self.didHud?(.alert(type: error))
+        DispatchQueue.main.async {
+          self.didRequestShowHUD?(error)
+          self.didRequestLoader?(.stop)
+        }
       }
     }
   }

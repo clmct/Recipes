@@ -3,30 +3,32 @@ import SnapKit
 
 final class PhotoViewController: UIViewController {
   
+  // MARK: Properties
   var viewModel: PhotoViewModelProtocol?
   
-  private lazy var imgView: UIImageView = {
+  private var imgView: UIImageView = {
     let image = UIImageView()
     image.contentMode = .scaleAspectFit
     return image
   }()
   
-  private lazy var saveButton: UIButton = {
+  private var saveButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Download", for: .normal)
-    button.setTitleColor(UIColor(red: 0.29, green: 0.565, blue: 0.886, alpha: 1), for: .normal)
+    button.setTitleColor(.basic3, for: .normal)
     button.layer.cornerRadius = 22
     button.layer.borderWidth = 1
-    button.layer.borderColor = UIColor(red: 0.29, green: 0.565, blue: 0.886, alpha: 1).cgColor
+    button.layer.borderColor = UIColor.basic3.cgColor
     
     return button
   }()
   
-  private lazy var closeButton: UIButton = {
+  private var closeButton: UIButton = {
     let button = UIButton(type: .close)
     return button
   }()
   
+  // MARK: Life Cycle
   init(image: UIImage) {
     super.init(nibName: nil, bundle: nil)
     self.imgView.image = image
@@ -43,20 +45,24 @@ final class PhotoViewController: UIViewController {
     closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
   }
   
-  @objc func closeAction() {
+  // MARK: Private Methods
+  @objc
+  private func closeAction() {
     dismiss(animated: true, completion: nil)
   }
   
-  @objc func saveAction() {
+  @objc
+  private func saveAction() {
     guard let image = imgView.image else { return }
-    viewModel?.save(photo: image) { [weak self] (_, error) in
+    viewModel?.save(photo: image) { [weak self] error in
       DispatchQueue.main.async {
         self?.alert(error: error)
       }
     }
   }
   
-  func alert(error: Error?) {
+  // MARK: Layout
+  private func alert(error: Error?) {
     if let error = error {
       let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
       ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -68,8 +74,7 @@ final class PhotoViewController: UIViewController {
     }
   }
   
-  func setupLayout() {
-    
+  private func setupLayout() {
     view.addSubview(imgView)
     imgView.snp.makeConstraints { (make) in
       make.centerY.centerX.equalToSuperview()
@@ -89,7 +94,6 @@ final class PhotoViewController: UIViewController {
       make.top.equalToSuperview().inset(100)
       make.height.width.equalTo(40)
     }
-
   }
 }
   
