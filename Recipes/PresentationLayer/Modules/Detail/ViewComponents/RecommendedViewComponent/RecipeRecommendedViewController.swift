@@ -3,7 +3,17 @@ import SnapKit
 
 final class RecipeRecommendedViewController: UIViewController {
   
-  lazy var collectionView: UICollectionView = {
+  // MARK: Properties
+  private var recommendedTitleLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .basic1
+    label.font = .basic4
+    label.numberOfLines = 1
+    label.text = "Recommended:"
+    return label
+  }()
+  
+  private var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumLineSpacing = 12
@@ -13,35 +23,49 @@ final class RecipeRecommendedViewController: UIViewController {
     return collectioView
   }()
   
-  var recipesBrief: [RecipeBrief]?
+  private var recipesBrief: [RecipeBrief]?
+  var didSelect: ((String) -> ())?
   
+  // MARK: Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCollection()
     setupLayout()
   }
   
-  func reloadData() {
+  // MARK: Internal Methods
+  func configure(recipesBrief: [RecipeBrief]) {
+    self.recipesBrief = recipesBrief
     collectionView.reloadData()
   }
   
-  func setupCollection() {
+  // MARK: Private Methods
+  private func setupCollection() {
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.register(RecipeRecommendedCollectionViewCell.self,
-                            forCellWithReuseIdentifier: RecipeRecommendedCollectionViewCell.identifire)
+                            forCellWithReuseIdentifier: RecipeRecommendedCollectionViewCell.identifier)
   }
   
-  func setupLayout() {
+  private func setupLayout() {
+    view.addSubview(recommendedTitleLabel)
+    recommendedTitleLabel.snp.makeConstraints { make in
+      make.top.equalTo(view.snp.top).offset(8)
+      make.leading.equalTo(view).inset(24)
+      make.trailing.equalTo(view).inset(24)
+    }
+    
     view.addSubview(collectionView)
     collectionView.backgroundColor = .clear
     collectionView.snp.makeConstraints { (make) in
-      make.edges.equalToSuperview()
+      make.top.equalTo(recommendedTitleLabel.snp.bottom)
+      make.leading.trailing.bottom.equalToSuperview()
+    }
+    
+    view.snp.makeConstraints { (make) in
+      make.bottom.equalTo(collectionView.snp.bottom).offset(15)
     }
   }
-  
-  var didSelect: ((String) -> ())?
-  
 }
 
 // MARK: Data Source && Delegate
@@ -51,7 +75,7 @@ extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectio
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeRecommendedCollectionViewCell.identifire, for: indexPath) as? RecipeRecommendedCollectionViewCell else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeRecommendedCollectionViewCell.identifier, for: indexPath) as? RecipeRecommendedCollectionViewCell else {
       return UICollectionViewCell()
     }
     if let recipe = recipesBrief {
@@ -70,5 +94,4 @@ extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectio
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     CGSize(width: 204, height: 112)
   }
-  
 }

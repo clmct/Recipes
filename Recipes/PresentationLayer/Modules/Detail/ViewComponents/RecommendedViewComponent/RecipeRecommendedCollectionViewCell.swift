@@ -3,9 +3,9 @@ import SnapKit
 
 class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
     
-  static var identifire = "RecipeRecommendedCollectionViewCell"
+  static var identifier = "RecipeRecommendedCollectionViewCell"
   
-  private lazy var imgView: UIImageView = {
+  private var imgView: UIImageView = {
     let image = UIImageView()
     image.contentMode = .center
     image.layer.cornerRadius = 10
@@ -14,7 +14,7 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
     return image
   }()
   
-  private lazy var titleLabel: UILabel = {
+  private var titleLabel: UILabel = {
     let title = UILabel()
     title.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     title.font = .systemFont(ofSize: 16)
@@ -30,7 +30,7 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupLayput() {
+  private func setupLayput() {
     contentView.addSubview(imgView)
     imgView.snp.makeConstraints { (make) in
       make.edges.equalToSuperview()
@@ -43,7 +43,7 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
   }
 }
 
-
+// MARK: ConfigurableCellProtocol
 extension RecipeRecommendedCollectionViewCell: ConfigurableCellProtocol {
   typealias model = RecipeBrief
   

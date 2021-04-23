@@ -5,34 +5,37 @@ enum SortType {
   case date
 }
 
+enum LoaderAction {
+  case start
+  case stop
+}
+
 protocol RecipesViewModelProtocol {
   var didUpdateViewModel: (() -> ())? { get set }
-  var didHud: ((HudType) -> ())? { get set }
-  func didSelect(index: Int)
-  func fetchData()
+  var didRequestShowHUD: ((NetworkError) -> ())? { get set }
+  var didRequestLoader: ((LoaderAction) -> ())? { get set }
   var filteredRecipes: [RecipeListElement] { get set }
-  func updateSearchResults(searchController: UISearchController)
+  func updateSearchResults(text: String, index: Int)
   func sort(type: SortType)
+  func select(index: Int)
+  func fetchData()
 }
 
 final class RecipesViewModel: RecipesViewModelProtocol {
-  var didHud: ((HudType) -> ())?
-  
-  
   let networkService: NetworkServiceProtocol
   let router: RouterProtocol
+  var didRequestShowHUD: ((NetworkError) -> ())?
+  var didUpdateViewModel: (() -> ())?
+  var recipes = [RecipeListElement]()
+  var filteredRecipes = [RecipeListElement]()
+  var didRequestLoader: ((LoaderAction) -> ())?
   
   init(networkService: NetworkServiceProtocol, router: RouterProtocol) {
     self.networkService = networkService
     self.router = router
   }
   
-  var didUpdateViewModel: (() -> ())?
-  var recipes = [RecipeListElement]()
-  var filteredRecipes = [RecipeListElement]()
-  var isFiltering: Bool = false
-  
-  func didSelect(index: Int) {
+  func select(index: Int) {
     router.showDetailRecipe(uuid: filteredRecipes[index].uuid)
   }
   
@@ -47,47 +50,51 @@ final class RecipesViewModel: RecipesViewModelProtocol {
   }
   
   func fetchData() {
-    self.didHud?(.loader(type: .start))
-    networkService.fetch(router: .getRecipes) { (result: Result<Recipes, NetworkError>) in
+    didRequestLoader?(.start)
+    networkService.getRecipes { (result: Result<Recipes, NetworkError>) in
       switch result {
       case.success(let recipes):
         self.recipes = recipes.recipes
         self.filteredRecipes = recipes.recipes.sorted { $0.name < $1.name }
-        self.didUpdateViewModel?()
-        self.didHud?(.loader(type: .stop))
+        DispatchQueue.main.async {
+          self.didUpdateViewModel?()
+          self.didRequestLoader?(.stop)
+        }
       case .failure(let error):
-        self.didHud?(.alert(type: error))
+        DispatchQueue.main.async {
+          self.didRequestShowHUD?(error)
+          self.didRequestLoader?(.stop)
+        }
       }
     }
   }
   
-  func updateSearchResults(searchController: UISearchController) {
-    guard let text = searchController.searchBar.text else { return }
-    let index = searchController.searchBar.selectedScopeButtonIndex
+  func updateSearchResults(text: String, index: Int) {
     if text == "" {
       filteredRecipes = recipes
       self.didUpdateViewModel?()
       return
     }
     
-    filteredRecipes = recipes.filter({ (recipe) -> Bool in
+    filteredRecipes = recipes.filter { recipe -> Bool in
+      let index = Constants.FilterIndex.init(rawValue: index)
       switch index {
-      case 0:
+      case .nameFilterIndex:
         return recipe.name.lowercased().contains(text.lowercased())
-      case 1:
+      case .descriptionFilterIndex:
         if let description = recipe.description {
           return description.lowercased().contains(text.lowercased())
         } else {
           return false
         }
-      case 2:
+      case .instructionFilterIndex:
         return recipe.instructions.lowercased().contains(text.lowercased())
       default:
         return true
       }
-    })
+    }
     self.didUpdateViewModel?()
   }
-  
 }
+
 

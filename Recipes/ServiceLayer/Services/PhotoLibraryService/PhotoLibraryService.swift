@@ -1,14 +1,14 @@
 import UIKit
 import Photos
 
-protocol PhotoViewModelProtocol {
-  func save(photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ())
+protocol PhotoLibraryServiceProtocol {
+  func save(title: String, photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ())
 }
 
-final class PhotoViewModel: PhotoViewModelProtocol {
+class PhotoLibraryService: PhotoLibraryServiceProtocol {
   
-  func save(photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ()) {
-    getAlbum(title: "Pictures") { (album) in
+  func save(title: String, photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ()) {
+    getAlbum(title: title) { (album) in
       DispatchQueue.global(qos: .background).async {
         PHPhotoLibrary.shared().performChanges({
           let assetRequest = PHAssetChangeRequest.creationRequestForAsset(from: photo)
@@ -23,15 +23,11 @@ final class PhotoViewModel: PhotoViewModelProtocol {
     }
   }
   
-}
-
-private extension PhotoViewModel {
-  
   /// Create album with given title
   /// - Parameters:
   ///   - title: the title
   ///   - completionHandler: the completion handler
-  func createAlbum(withTitle title: String, completionHandler: @escaping (PHAssetCollection?) -> ()) {
+  private func createAlbum(withTitle title: String, completionHandler: @escaping (PHAssetCollection?) -> ()) {
     DispatchQueue.global(qos: .background).async {
       var placeholder: PHObjectPlaceholder?
       
@@ -54,7 +50,7 @@ private extension PhotoViewModel {
   /// - Parameters:
   ///   - title: the title
   ///   - completionHandler: the completion handler
-  func getAlbum(title: String, completionHandler: @escaping (PHAssetCollection?) -> ()) {
+  private func getAlbum(title: String, completionHandler: @escaping (PHAssetCollection?) -> ()) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       let fetchOptions = PHFetchOptions()
       fetchOptions.predicate = NSPredicate(format: "title = %@", title)
@@ -69,5 +65,4 @@ private extension PhotoViewModel {
       }
     }
   }
-  
 }

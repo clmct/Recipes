@@ -1,7 +1,6 @@
 import Foundation
 
 enum NetworkRouter {
-  
   case getRecipes
   case getRecipe(id: String)
   
@@ -35,6 +34,5 @@ enum NetworkRouter {
       return "GET"
     }
   }
-  
 }
 
