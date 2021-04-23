@@ -16,8 +16,8 @@ class RecipeRecommendedCollectionViewCell: UICollectionViewCell {
   
   private var titleLabel: UILabel = {
     let title = UILabel()
-    title.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-    title.font = .systemFont(ofSize: 16)
+    title.textColor = .basic4
+    title.font = .basic5
     return title
   }()
   

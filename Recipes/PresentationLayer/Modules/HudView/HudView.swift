@@ -6,18 +6,18 @@ final class HudView: UIView {
   private var refreshButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Refresh", for: .normal)
-    button.setTitleColor(UIColor(red: 0.29, green: 0.565, blue: 0.886, alpha: 1), for: .normal)
+    button.setTitleColor(.basic3, for: .normal)
     button.layer.cornerRadius = 22
     button.layer.borderWidth = 1
-    button.layer.borderColor = UIColor(red: 0.29, green: 0.565, blue: 0.886, alpha: 1).cgColor
+    button.layer.borderColor = UIColor.basic3.cgColor
     return button
   }()
   
   private var titleLabel: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
-    label.textColor = UIColor(red: 0.213, green: 0.213, blue: 0.213, alpha: 1)
-    label.font = .boldSystemFont(ofSize: 24)
+    label.textColor = .basic5
+    label.font = .basic6
     label.textAlignment = .center
     return label
   }()
@@ -25,8 +25,8 @@ final class HudView: UIView {
   private var descriptionLabel: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
-    label.textColor = UIColor(red: 0.213, green: 0.213, blue: 0.213, alpha: 1)
-    label.font = .systemFont(ofSize: 16)
+    label.textColor = .basic5
+    label.font = .basic5
     label.textAlignment = .center
     var paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineHeightMultiple = 1.28
