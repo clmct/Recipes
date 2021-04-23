@@ -1,10 +1,3 @@
-//
-//  RootAssembly.swift
-//  Recipes
-//
-//  Created by Алмат Кульбаев on 23.04.2021.
-//
-
 import Foundation
 
 class RootAssembly {

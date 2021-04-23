@@ -71,7 +71,7 @@ final class RecipeRecommendedViewController: UIViewController {
 // MARK: Data Source && Delegate
 extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    recipesBrief?.count ?? 0
+    return recipesBrief?.count ?? 0
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -92,6 +92,6 @@ extension RecipeRecommendedViewController: UICollectionViewDelegate, UICollectio
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    CGSize(width: 204, height: 112)
+    return CGSize(width: 204, height: 112)
   }
 }

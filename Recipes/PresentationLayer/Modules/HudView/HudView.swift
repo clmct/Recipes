@@ -64,12 +64,12 @@ final class HudView: UIView {
   private func setupText(networkType: NetworkError) {
     switch networkType {
     case .noInternet:
-      titleLabel.text = "No internet"
-      let text = "Try refreshing the screen when communication is restored."
+      titleLabel.text = Constants.NoInternet.title.rawValue
+      let text = Constants.NoInternet.description.rawValue
       descriptionLabel.attributedText = attributedText(text: text)
     case .serverResponse:
-      titleLabel.text = "Something went wrong"
-      let text = "The problem is on our side, we are already looking into it. Please try refreshing the screen later."
+      titleLabel.text = Constants.SomethingWentWrong.title.rawValue
+      let text = Constants.SomethingWentWrong.description.rawValue
       descriptionLabel.attributedText = attributedText(text: text)
     }
   }
