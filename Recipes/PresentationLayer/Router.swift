@@ -1,17 +1,5 @@
 import UIKit
 
-//protocol RootRouterProtocol {
-//  func showRecipes()
-//}
-//
-//protocol RecipesRouterProtocol {
-//  func showDetailRecipe(uuid: String)
-//}
-//
-//protocol RecipeRouterProtocol {
-//  func showPhoto(image: UIImage)
-//}
-
 protocol RouterProtocol: class {
   func showRecipes()
   func showDetailRecipe(uuid: String)
@@ -24,6 +12,7 @@ final class Router: RouterProtocol {
   var navigationController = UINavigationController()
   
   init(assembly: PresentationAssemblyProtocol) {
+    navigationController.navigationBar.tintColor = .black
     self.assembly = assembly
     showRecipes()
   }

@@ -5,23 +5,7 @@ protocol PhotoLibraryServiceProtocol {
   func save(title: String, photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ())
 }
 
-class PhotoLibraryService: PhotoLibraryServiceProtocol {
-  
-  func save(title: String, photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ()) {
-    getAlbum(title: title) { (album) in
-      DispatchQueue.global(qos: .background).async {
-        PHPhotoLibrary.shared().performChanges({
-          let assetRequest = PHAssetChangeRequest.creationRequestForAsset(from: photo)
-          let assets = assetRequest.placeholderForCreatedAsset
-            .map { [$0] as NSArray } ?? NSArray()
-          let albumChangeRequest = album.flatMap { PHAssetCollectionChangeRequest(for: $0) }
-          albumChangeRequest?.addAssets(assets)
-        }, completionHandler: { (success, error) in
-          completionHandler(success, error)
-        })
-      }
-    }
-  }
+class PhotoLibraryService {
   
   /// Create album with given title
   /// - Parameters:
@@ -61,6 +45,25 @@ class PhotoLibraryService: PhotoLibraryServiceProtocol {
       } else {
         self?.createAlbum(withTitle: title, completionHandler: { (album) in
           completionHandler(album)
+        })
+      }
+    }
+  }
+}
+
+// MARK: PhotoLibraryServiceProtocol
+extension PhotoLibraryService: PhotoLibraryServiceProtocol {
+  func save(title: String, photo: UIImage, completionHandler: @escaping (Bool, Error?) -> ()) {
+    getAlbum(title: title) { (album) in
+      DispatchQueue.global(qos: .background).async {
+        PHPhotoLibrary.shared().performChanges({
+          let assetRequest = PHAssetChangeRequest.creationRequestForAsset(from: photo)
+          let assets = assetRequest.placeholderForCreatedAsset
+            .map { [$0] as NSArray } ?? NSArray()
+          let albumChangeRequest = album.flatMap { PHAssetCollectionChangeRequest(for: $0) }
+          albumChangeRequest?.addAssets(assets)
+        }, completionHandler: { (success, error) in
+          completionHandler(success, error)
         })
       }
     }

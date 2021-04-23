@@ -13,7 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let window = UIWindow(windowScene: scene)
     window.rootViewController = router.navigationController
-    router.navigationController.navigationBar.tintColor = .black
     window.makeKeyAndVisible()
     self.window = window
   }

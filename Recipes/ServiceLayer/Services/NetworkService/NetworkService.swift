@@ -65,17 +65,18 @@ final class NetworkService {
     }.resume()
   }
 }
-  
-  extension NetworkService: NetworkServiceProtocol {
-    func getRecipes(completion: @escaping (Result<Recipes, NetworkError>) -> Void) {
-      self.fetch(router: .getRecipes) { (result: Result<Recipes, NetworkError>) in
-        completion(result)
-      }
-    }
-    
-    func getRecipe(id: String, completion: @escaping (Result<Recipe, NetworkError>) -> Void) {
-      self.fetch(router: .getRecipe(id: id)) { (result: Result<Recipe, NetworkError>) in
-        completion(result)
-      }
+
+// MARK: NetworkServiceProtocol
+extension NetworkService: NetworkServiceProtocol {
+  func getRecipes(completion: @escaping (Result<Recipes, NetworkError>) -> Void) {
+    self.fetch(router: .getRecipes) { (result: Result<Recipes, NetworkError>) in
+      completion(result)
     }
   }
+  
+  func getRecipe(id: String, completion: @escaping (Result<Recipe, NetworkError>) -> Void) {
+    self.fetch(router: .getRecipe(id: id)) { (result: Result<Recipe, NetworkError>) in
+      completion(result)
+    }
+  }
+}
