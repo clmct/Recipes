@@ -3,26 +3,28 @@ import UIKit
 protocol DetailRecipeViewModelProtocol {
   var recipe: RecipeElement? { get }
   var didFetchData: ((RecipeElement) -> ())? { get set }
-  var didRequestShowHUD: ((NetworkError) -> ())? { get set }
   var didRequestLoader: ((LoaderAction) -> ())? { get set }
   func fetchData()
   func showRecipe(id: String)
   func showPhoto(image: UIImage)
+  func closeViewController()
 }
 
 final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
   var uuid: String
   let networkService: NetworkServiceProtocol
-  var router: RouterProtocol
   var recipe: RecipeElement?
+  weak var delegate: RecipeViewModelDelegate?
   var didFetchData: ((RecipeElement) -> ())?
-  var didRequestShowHUD: ((NetworkError) -> ())?
   var didRequestLoader: ((LoaderAction) -> ())?
-  
-  init(uuid: String, networkService: NetworkServiceProtocol, router: RouterProtocol) {
+
+  init(uuid: String, networkService: NetworkServiceProtocol) {
     self.uuid = uuid
     self.networkService = networkService
-    self.router = router
+  }
+  
+  func closeViewController() {
+    delegate?.closeViewController()
   }
   
   func fetchData() {
@@ -37,7 +39,9 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
         }
       case .failure(let error):
         DispatchQueue.main.async {
-          self.didRequestShowHUD?(error)
+          self.delegate?.showNetworkError(networkError: error) { [weak self] in
+            self?.fetchData()
+          }
           self.didRequestLoader?(.stop)
         }
       }
@@ -45,11 +49,11 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
   }
   
   func showRecipe(id: String) {
-    router.showDetailRecipe(uuid: id)
+    delegate?.showDetailRecipe(uuid: id)
   }
   
   func showPhoto(image: UIImage) {
-    router.showPhoto(image: image)
+    delegate?.showPhoto(image: image)
   }
   
 }

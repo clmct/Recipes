@@ -4,24 +4,9 @@ import SnapKit
 final class RecipeRecommendedViewController: UIViewController {
   
   // MARK: Properties
-  private var recommendedTitleLabel: UILabel = {
-    let label = UILabel()
-    label.textColor = .basic1
-    label.font = .basic4
-    label.numberOfLines = 1
-    label.text = "Recommended:"
-    return label
-  }()
-  
-  private var collectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    layout.minimumLineSpacing = 12
-    let collectioView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-    collectioView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    collectioView.showsHorizontalScrollIndicator = false
-    return collectioView
-  }()
+  private let recommendedTitleLabel = UILabel()
+  private let collectionView = UICollectionView(frame: .zero,
+                                                collectionViewLayout: UICollectionViewFlowLayout())
   
   private var recipesBrief: [RecipeBrief]?
   var didSelect: ((String) -> ())?
@@ -29,6 +14,8 @@ final class RecipeRecommendedViewController: UIViewController {
   // MARK: Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupRecommendedTitleLabel()
+    setupCollectionView()
     setupCollection()
     setupLayout()
   }
@@ -40,6 +27,23 @@ final class RecipeRecommendedViewController: UIViewController {
   }
   
   // MARK: Private Methods
+  
+  private func setupRecommendedTitleLabel() {
+    recommendedTitleLabel.textColor = .basic1
+    recommendedTitleLabel.font = .basic4
+    recommendedTitleLabel.numberOfLines = 1
+    recommendedTitleLabel.text = "Recommended:"
+  }
+  
+  private func setupCollectionView() {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    layout.minimumLineSpacing = 12
+    collectionView.collectionViewLayout = layout
+    collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    collectionView.showsHorizontalScrollIndicator = false
+  }
+  
   private func setupCollection() {
     collectionView.delegate = self
     collectionView.dataSource = self

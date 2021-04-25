@@ -3,21 +3,9 @@ import SnapKit
 
 final class PhotosViewComponent: UIView {
   
-  // MARK: Properties
-  private lazy var photoScrollView: UIScrollView = {
-    let scroll = UIScrollView()
-    scroll.isPagingEnabled = true
-    scroll.showsHorizontalScrollIndicator = false
-    scroll.delegate = self
-    return scroll
-  }()
-  
-  private var pageControl: UIPageControl = {
-    let pageControl = UIPageControl(frame: .zero)
-    pageControl.isEnabled = false
-    return pageControl
-  }()
-  
+  // MARK: Properties  
+  private let photosScrollView = UIScrollView()
+  private let pageControl = UIPageControl(frame: .zero)
   var didTapPhoto: ((UIImage) -> ())?
   
   override init(frame: CGRect) {
@@ -43,13 +31,13 @@ final class PhotosViewComponent: UIView {
       imageView.addGestureRecognizer(tap)
       imageView.isUserInteractionEnabled = true
       imageView.contentMode = .scaleAspectFill
-      let xPosition = photoScrollView.frame.width * CGFloat(i)
+      let xPosition = photosScrollView.frame.width * CGFloat(i)
       imageView.frame = CGRect(x: xPosition, y: 0,
-                               width: photoScrollView.frame.width,
-                               height: photoScrollView.frame.height)
+                               width: photosScrollView.frame.width,
+                               height: photosScrollView.frame.height)
       
-      photoScrollView.contentSize.width = photoScrollView.frame.width * CGFloat(1 + i)
-      photoScrollView.addSubview(imageView)
+      photosScrollView.contentSize.width = photosScrollView.frame.width * CGFloat(1 + i)
+      photosScrollView.addSubview(imageView)
       pageControl.numberOfPages = images.count
       
     }
@@ -63,9 +51,13 @@ final class PhotosViewComponent: UIView {
       didTapPhoto?(image)
     }
   }
+  
   private func setupLayout() {
-    addSubview(photoScrollView)
-    photoScrollView.snp.makeConstraints { (make) in
+    setupPhotosScrollView()
+    setupPageControl()
+    
+    addSubview(photosScrollView)
+    photosScrollView.snp.makeConstraints { (make) in
       make.top.leading.trailing.equalTo(self)
       make.height.equalTo(300)
     }
@@ -77,15 +69,26 @@ final class PhotosViewComponent: UIView {
     }
     
     self.snp.makeConstraints { (make) in
-      make.bottom.equalTo(photoScrollView.snp.bottom)
+      make.bottom.equalTo(photosScrollView.snp.bottom)
     }
+  }
+  
+  private func setupPhotosScrollView() {
+    photosScrollView.isPagingEnabled = true
+    photosScrollView.showsHorizontalScrollIndicator = false
+    photosScrollView.delegate = self
+  }
+  
+  private func setupPageControl() {
+    pageControl.isEnabled = false
   }
 }
 
 // MARK: UIScrollViewDelegate
 extension PhotosViewComponent: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let position = Int(scrollView.contentOffset.x / photoScrollView.frame.width)
+    let position = Int(scrollView.contentOffset.x / photosScrollView.frame.width)
     pageControl.currentPage = position
   }
 }
+

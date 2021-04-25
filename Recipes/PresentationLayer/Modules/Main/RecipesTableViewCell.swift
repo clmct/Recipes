@@ -4,43 +4,11 @@ import Kingfisher
 final class RecipeTableViewCell: UITableViewCell {
   
   // MARK: Properties
-  static var identifier = "RecipeTableViewCell"
-  
-  private var imgView: UIImageView = {
-    let image = UIImageView()
-    image.contentMode = .center
-    image.layer.cornerRadius = 10
-    image.layer.cornerCurve = .continuous
-    image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-    image.layer.masksToBounds = true
-    return image
-  }()
-  
-  private var titleLabel: UILabel = {
-    let title = UILabel()
-    title.textColor = .basic1
-    title.font = .basic2
-    title.lineBreakMode = .byWordWrapping
-    title.numberOfLines = 2
-    return title
-  }()
-  
-  private var descriptionLabel: UILabel = {
-    let description = UILabel()
-    description.textColor = .basic2
-    description.font = .basic3
-    description.lineBreakMode = .byWordWrapping
-    description.numberOfLines = 2
-    return description
-  }()
-  
-  private var dateLabel: UILabel = {
-    let date = UILabel()
-    date.textColor = .basic1
-    date.numberOfLines = 2
-    date.font = .basic3
-    return date
-  }()
+  static let identifier = "RecipeTableViewCell"
+  private let imgView = UIImageView()
+  private let titleLabel = UILabel()
+  private let descriptionLabel = UILabel()
+  private let dateLabel = UILabel()
   
   // MARK: Life Cycle
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,7 +33,42 @@ final class RecipeTableViewCell: UITableViewCell {
     return formatter.string(from: date)
   }
   
+  private func setupImageView() {
+    imgView.contentMode = .center
+    imgView.layer.cornerRadius = 10
+    imgView.layer.cornerCurve = .continuous
+    imgView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+    imgView.layer.masksToBounds = true
+  }
+  
+  private func setupTitleLabel() {
+    titleLabel.textColor = .basic1
+    titleLabel.font = .basic2
+    titleLabel.lineBreakMode = .byWordWrapping
+    titleLabel.numberOfLines = 2
+  }
+  
+  
+  private func setupDescriptionLabel() {
+    descriptionLabel.textColor = .basic2
+    descriptionLabel.font = .basic3
+    descriptionLabel.lineBreakMode = .byWordWrapping
+    descriptionLabel.numberOfLines = 2
+  }
+  
+  private func setupDateLabel() {
+    dateLabel.textColor = .basic1
+    dateLabel.numberOfLines = 2
+    dateLabel.font = .basic3
+  }
+  
+  
   private func setupLayout() {
+    setupImageView()
+    setupTitleLabel()
+    setupDescriptionLabel()
+    setupDateLabel()
+    
     contentView.addSubview(imgView)
     contentView.addSubview(titleLabel)
     contentView.addSubview(descriptionLabel)

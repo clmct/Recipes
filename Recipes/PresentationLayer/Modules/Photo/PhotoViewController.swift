@@ -6,32 +6,14 @@ final class PhotoViewController: UIViewController {
   // MARK: Properties
   var viewModel: PhotoViewModelProtocol?
   
-  private var imgView: UIImageView = {
-    let image = UIImageView()
-    image.contentMode = .scaleAspectFit
-    return image
-  }()
-  
-  private var saveButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Download", for: .normal)
-    button.setTitleColor(.basic3, for: .normal)
-    button.layer.cornerRadius = 22
-    button.layer.borderWidth = 1
-    button.layer.borderColor = UIColor.basic3.cgColor
-    
-    return button
-  }()
-  
-  private var closeButton: UIButton = {
-    let button = UIButton(type: .close)
-    return button
-  }()
+  private let imageView = UIImageView()
+  private let saveButton = UIButton(type: .system)
+  private let closeButton = UIButton(type: .close)
   
   // MARK: Life Cycle
   init(image: UIImage) {
     super.init(nibName: nil, bundle: nil)
-    self.imgView.image = image
+    self.imageView.image = image
   }
   
   required init?(coder: NSCoder) {
@@ -53,7 +35,7 @@ final class PhotoViewController: UIViewController {
   
   @objc
   private func saveAction() {
-    guard let image = imgView.image else { return }
+    guard let image = imageView.image else { return }
     viewModel?.save(photo: image) { [weak self] error in
       DispatchQueue.main.async {
         self?.alert(error: error)
@@ -75,8 +57,11 @@ final class PhotoViewController: UIViewController {
   }
   
   private func setupLayout() {
-    view.addSubview(imgView)
-    imgView.snp.makeConstraints { (make) in
+    setupImageView()
+    setupSaveButton()
+    
+    view.addSubview(imageView)
+    imageView.snp.makeConstraints { (make) in
       make.centerY.centerX.equalToSuperview()
       make.height.lessThanOrEqualToSuperview().inset(200)
     }
@@ -84,7 +69,7 @@ final class PhotoViewController: UIViewController {
     view.addSubview(saveButton)
     saveButton.snp.makeConstraints { (make) in
       make.leading.trailing.equalToSuperview().inset(32)
-      make.top.equalTo(imgView.snp.bottom).offset(50)
+      make.top.equalTo(imageView.snp.bottom).offset(50)
       make.height.equalTo(44)
     }
     
@@ -94,6 +79,18 @@ final class PhotoViewController: UIViewController {
       make.top.equalToSuperview().inset(100)
       make.height.width.equalTo(40)
     }
+  }
+  
+  private func setupImageView() {
+    imageView.contentMode = .scaleAspectFit
+  }
+  
+  private func setupSaveButton() {
+    saveButton.setTitle("Download", for: .normal)
+    saveButton.setTitleColor(.basic3, for: .normal)
+    saveButton.layer.cornerRadius = 22
+    saveButton.layer.borderWidth = 1
+    saveButton.layer.borderColor = UIColor.basic3.cgColor
   }
 }
   

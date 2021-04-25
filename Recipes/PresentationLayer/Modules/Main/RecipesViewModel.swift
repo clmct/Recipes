@@ -12,7 +12,6 @@ enum LoaderAction {
 
 protocol RecipesViewModelProtocol {
   var didUpdateViewModel: (() -> ())? { get set }
-  var didRequestShowHUD: ((NetworkError) -> ())? { get set }
   var didRequestLoader: ((LoaderAction) -> ())? { get set }
   var filteredRecipes: [RecipeListElement] { get set }
   func updateSearchResults(text: String, index: Int)
@@ -23,20 +22,18 @@ protocol RecipesViewModelProtocol {
 
 final class RecipesViewModel: RecipesViewModelProtocol {
   let networkService: NetworkServiceProtocol
-  let router: RouterProtocol
-  var didRequestShowHUD: ((NetworkError) -> ())?
+  weak var delegate: RecipesViewModelDelegate?
   var didUpdateViewModel: (() -> ())?
   var recipes = [RecipeListElement]()
   var filteredRecipes = [RecipeListElement]()
   var didRequestLoader: ((LoaderAction) -> ())?
   
-  init(networkService: NetworkServiceProtocol, router: RouterProtocol) {
+  init(networkService: NetworkServiceProtocol) {
     self.networkService = networkService
-    self.router = router
   }
   
   func select(index: Int) {
-    router.showDetailRecipe(uuid: filteredRecipes[index].uuid)
+    delegate?.showDetailRecipe(uuid: filteredRecipes[index].uuid)
   }
   
   func sort(type: SortType) {
@@ -62,7 +59,9 @@ final class RecipesViewModel: RecipesViewModelProtocol {
         }
       case .failure(let error):
         DispatchQueue.main.async {
-          self.didRequestShowHUD?(error)
+          self.delegate?.showNetworkError(networkError: error) { [weak self] in
+            self?.fetchData()
+          }
           self.didRequestLoader?(.stop)
         }
       }

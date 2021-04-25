@@ -3,31 +3,12 @@ import UIKit
 final class InformationViewComponent: UIView {
   
   // MARK: Properties
-  private lazy var titleLabel: UILabel = {
-    return createLabel(textColor: .basic1, font: .basic1, numberOfLines: 0)
-  }()
-  
-  private lazy var descriptionLabel: UILabel = {
-    return createLabel(textColor: .basic2, font: .basic3, numberOfLines: 0)
-  }()
-  
-  private lazy var difficultyTitleLabel: UILabel = {
-    return createLabel(textColor: .basic1, font: .basic4, numberOfLines: 1)
-  }()
-  
-  private lazy var instructionTitleLabel: UILabel = {
-    return createLabel(textColor: .basic1, font: .basic4, numberOfLines: 1)
-  }()
-  
-  private lazy var instructionLabel: UILabel = {
-    return createLabel(textColor: .basic2, font: .basic3, numberOfLines: 0)
-  }()
-  
-  private lazy var dateLabel: UILabel = {
-    let label = createLabel(textColor: .basic1, font: .basic3, numberOfLines: 1)
-    label.textAlignment = .right
-    return label
-  }()
+  private let titleLabel = UILabel()
+  private let descriptionLabel = UILabel()
+  private let difficultyTitleLabel = UILabel()
+  private let instructionTitleLabel = UILabel()
+  private let instructionLabel = UILabel()
+  private let dateLabel = UILabel()
   
   // MARK: Life Cycle
   override init(frame: CGRect) {
@@ -85,6 +66,14 @@ final class InformationViewComponent: UIView {
   
   // MARK: Layout
   private func setupLayout() {
+    setupTitleLabel()
+    setupDescriptionLabel()
+    setupDifficultyTitleLabel()
+    setupInstructionTitleLabel()
+    setupInstructionLabel()
+    setupDateLabel()
+    
+    
     addSubview(titleLabel)
     addSubview(dateLabel)
     addSubview(descriptionLabel)
@@ -95,7 +84,7 @@ final class InformationViewComponent: UIView {
     titleLabel.snp.makeConstraints { make in
       make.top.equalTo(self).offset(20)
       make.leading.equalTo(self).inset(20)
-      make.trailing.equalTo(self).inset(70 + 24)
+      make.trailing.equalTo(self).inset(94)
     }
     
     dateLabel.snp.makeConstraints { make in
@@ -131,6 +120,40 @@ final class InformationViewComponent: UIView {
       make.bottom.equalTo(instructionLabel.snp.bottom)
     }
   }
+  
+  private func setupTitleLabel() {
+    titleLabel.textColor = .basic1
+    titleLabel.font = .basic1
+    titleLabel.numberOfLines = 0
+  }
+  
+  private func setupDescriptionLabel() {
+    descriptionLabel.textColor = .basic2
+    descriptionLabel.font = .basic3
+    descriptionLabel.numberOfLines = 0
+  }
+  
+  private func setupDifficultyTitleLabel() {
+    difficultyTitleLabel.textColor = .basic1
+    difficultyTitleLabel.font = .basic4
+  }
+  
+  private func setupInstructionTitleLabel() {
+    instructionTitleLabel.textColor = .basic1
+    instructionTitleLabel.font = .basic4
+  }
+  
+  private func setupInstructionLabel() {
+    instructionLabel.textColor = .basic2
+    instructionLabel.font = .basic3
+  }
+  
+  private func setupDateLabel() {
+    dateLabel.textColor = .basic1
+    dateLabel.font = .basic3
+    dateLabel.textAlignment = .right
+  }
+
 }
 
 

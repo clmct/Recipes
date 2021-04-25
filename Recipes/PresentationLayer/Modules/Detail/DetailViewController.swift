@@ -15,34 +15,26 @@ final class DetailRecipeViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     sutupLayout()
-    bindUpdateViewModel()
+    bindToViewModel()
     viewModel?.fetchData()
   }
   
-  // MARK: ViewModelBinding
-  private func bindUpdateViewModel() {
-    showRecipe()
-    fetchData()
-    showErrorHUD()
-    showLoader()
-    showPhoto()
+  deinit {
+    viewModel?.closeViewController()
   }
   
-  private func showPhoto() {
+  // MARK: ViewModelBinding
+  private func bindToViewModel() {
     photosViewComponent.didTapPhoto = { [weak self] image in
       guard let self = self else { return }
       self.viewModel?.showPhoto(image: image)
     }
-  }
   
-  private func showRecipe() {
     recipeRecommendedViewController.didSelect = { [weak self] id in
       guard let self = self else { return }
       self.viewModel?.showRecipe(id: id)
     }
-  }
   
-  private func fetchData() {
     viewModel?.didFetchData = { [weak self] recipe in
       guard let self = self else { return }
       self.informationViewComponent.configure(recipe: recipe)
@@ -57,20 +49,7 @@ final class DetailRecipeViewController: UIViewController {
         self.recipeRecommendedViewController.configure(recipesBrief: recipe.similar)
       }
     }
-  }
-  
-  private func showErrorHUD() {
-    viewModel?.didRequestShowHUD = { [weak self] error in
-      guard let self = self else { return }
-      var hudView: HudView? = HudView(inView: self.view, networkType: error)
-      hudView?.didRefresh = {
-        hudView = nil
-        self.viewModel?.fetchData()
-      }
-    }
-  }
-  
-  private func showLoader() {
+
     viewModel?.didRequestLoader = { [weak self] action in
       guard let self = self else { return }
       switch action {
@@ -125,7 +104,7 @@ final class DetailRecipeViewController: UIViewController {
     recipeRecommendedViewController.view.snp.makeConstraints { make in
       make.top.equalTo(informationViewComponent.snp.bottom).offset(8)
       make.leading.trailing.equalTo(contentView)
-      make.height.equalTo(112 + 50)
+      make.height.equalTo(162)
     }
     
     contentView.snp.remakeConstraints { (make) in

@@ -5,31 +5,15 @@ final class RecipesViewController: UIViewController {
   
   // MARK: Properties
   var viewModel: RecipesViewModelProtocol?
-  
-  private var loader = UIActivityIndicatorView(style: .medium)
-  
-  private var tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.separatorStyle = .none
-    return tableView
-  }()
-  
-  private var searchController: UISearchController = {
-    let searchController = UISearchController()
-    searchController.searchBar.autocapitalizationType = .none
-    searchController.obscuresBackgroundDuringPresentation = false
-    searchController.searchBar.scopeButtonTitles = [
-      Constants.Filter.nameFilterIndex.rawValue,
-      Constants.Filter.descriptionFilterIndex.rawValue,
-      Constants.Filter.instructionFilterIndex.rawValue]
-    return searchController
-  }()
+  private let loader = UIActivityIndicatorView(style: .medium)
+  private let tableView = UITableView()
+  private  let searchController = UISearchController()
   
   // MARK: Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupLayout()
-    bindUpdateViewModel()
+    bindToViewModel()
     viewModel?.fetchData()
   }
   
@@ -38,32 +22,13 @@ final class RecipesViewController: UIViewController {
     self.tableView.deselectSelectedRow(animated: animated)
   }
   
-  // MARK: ViewModelBinding
-  private func bindUpdateViewModel() {
-    updateTableView()
-    showHUD()
-    showLoader()
-  }
-  
-  private func updateTableView() {
+  // MARK: BindToViewModel
+  private func bindToViewModel() {
     viewModel?.didUpdateViewModel = { [weak self] in
       guard let self = self else { return }
       self.tableView.reloadData()
     }
-  }
   
-  private func showHUD() {
-    viewModel?.didRequestShowHUD = { [weak self] error in
-      guard let self = self else { return }
-      var hudView: HudView? = HudView(inView: self.view, networkType: error)
-      hudView?.didRefresh = {
-        hudView = nil
-        self.viewModel?.fetchData()
-      }
-    }
-  }
-  
-  private func showLoader() {
     viewModel?.didRequestLoader = { [weak self] action in
       guard let self = self else { return }
       switch action {
@@ -125,6 +90,12 @@ final class RecipesViewController: UIViewController {
   }
   
   private func setupSearchController() {
+    searchController.searchBar.autocapitalizationType = .none
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.searchBar.scopeButtonTitles = [
+      Constants.Filter.nameFilterIndex.rawValue,
+      Constants.Filter.descriptionFilterIndex.rawValue,
+      Constants.Filter.instructionFilterIndex.rawValue]
     definesPresentationContext = true
     navigationItem.hidesSearchBarWhenScrolling = false
     navigationItem.searchController = self.searchController
@@ -132,6 +103,7 @@ final class RecipesViewController: UIViewController {
   }
   
   private func setupTableView() {
+    tableView.separatorStyle = .none
     tableView.delegate = self
     tableView.dataSource = self
     tableView.register(RecipeTableViewCell.self, forCellReuseIdentifier: RecipeTableViewCell.identifier)
@@ -159,7 +131,7 @@ extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 112 + 26
+    return 138
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -174,4 +146,8 @@ extension RecipesViewController: UISearchResultsUpdating {
     let index = searchController.searchBar.selectedScopeButtonIndex
     viewModel?.updateSearchResults(text: text, index: index)
   }
+}
+
+extension RecipesViewController: HudErrorShowing {
+  
 }
