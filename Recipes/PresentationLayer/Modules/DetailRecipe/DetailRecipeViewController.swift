@@ -23,7 +23,7 @@ final class DetailRecipeViewController: UIViewController {
     viewModel?.closeViewController()
   }
   
-  // MARK: ViewModelBinding
+  // MARK: BindToViewModel
   private func bindToViewModel() {
     photosViewComponent.didTapPhoto = { [weak self] image in
       guard let self = self else { return }

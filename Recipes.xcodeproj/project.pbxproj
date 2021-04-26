@@ -31,7 +31,7 @@
 		B2583F7C2635DD60007AC85B /* RecipesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583F7B2635DD60007AC85B /* RecipesCoordinator.swift */; };
 		B2583F7F2635DD6C007AC85B /* DetailRecipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583F7E2635DD6C007AC85B /* DetailRecipeCoordinator.swift */; };
 		B263A6D426367EB900AB1445 /* UINavigationController+networkErrorShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263A6D326367EB900AB1445 /* UINavigationController+networkErrorShowing.swift */; };
-		B263A6D826367F2900AB1445 /* NetworkErrorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263A6D726367F2900AB1445 /* NetworkErrorProtocol.swift */; };
+		B263A6D826367F2900AB1445 /* NetworkErrorShowingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263A6D726367F2900AB1445 /* NetworkErrorShowingProtocol.swift */; };
 		B2946344262EE1C800BD3599 /* RecipesListElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2946343262EE1C800BD3599 /* RecipesListElement.swift */; };
 		B2946347262EE1E000BD3599 /* RecipeBrief.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2946346262EE1E000BD3599 /* RecipeBrief.swift */; };
 		B294634A262EE1EA00BD3599 /* RecipeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2946349262EE1EA00BD3599 /* RecipeElement.swift */; };
@@ -73,7 +73,7 @@
 		B2583F7B2635DD60007AC85B /* RecipesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCoordinator.swift; sourceTree = "<group>"; };
 		B2583F7E2635DD6C007AC85B /* DetailRecipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeCoordinator.swift; sourceTree = "<group>"; };
 		B263A6D326367EB900AB1445 /* UINavigationController+networkErrorShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+networkErrorShowing.swift"; sourceTree = "<group>"; };
-		B263A6D726367F2900AB1445 /* NetworkErrorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorProtocol.swift; sourceTree = "<group>"; };
+		B263A6D726367F2900AB1445 /* NetworkErrorShowingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorShowingProtocol.swift; sourceTree = "<group>"; };
 		B2946343262EE1C800BD3599 /* RecipesListElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesListElement.swift; sourceTree = "<group>"; };
 		B2946346262EE1E000BD3599 /* RecipeBrief.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBrief.swift; sourceTree = "<group>"; };
 		B2946349262EE1EA00BD3599 /* RecipeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeElement.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		B29C63662632047600FC3EBE /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				B263A6D726367F2900AB1445 /* NetworkErrorProtocol.swift */,
+				B263A6D726367F2900AB1445 /* NetworkErrorShowingProtocol.swift */,
 				B2583F722635D9AE007AC85B /* Coordinators */,
 				B22333472624988D00D571A3 /* Modules */,
 			);
@@ -411,7 +411,7 @@
 				B2115DAB2631624800A47996 /* UIColor+customColors.swift in Sources */,
 				B2946347262EE1E000BD3599 /* RecipeBrief.swift in Sources */,
 				B263A6D426367EB900AB1445 /* UINavigationController+networkErrorShowing.swift in Sources */,
-				B263A6D826367F2900AB1445 /* NetworkErrorProtocol.swift in Sources */,
+				B263A6D826367F2900AB1445 /* NetworkErrorShowingProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
