@@ -1,5 +1,5 @@
 import UIKit
 
-protocol CoordinatorProtocol: AnyObject {
+protocol CoordinatorProtocol: class {
   func start()
 }

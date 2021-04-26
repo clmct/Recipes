@@ -1,6 +1,6 @@
 import UIKit
 
-protocol DetailRecipeCoordinatorDelegate: AnyObject {
+protocol DetailRecipeCoordinatorDelegate: class {
     func detailRecipeCoordinatorDidFinishWork()
 }
 
