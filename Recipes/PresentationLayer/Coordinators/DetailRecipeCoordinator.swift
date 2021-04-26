@@ -1,18 +1,11 @@
 import UIKit
 
-protocol RecipeCoordinatorDelegate: AnyObject {
-    func recipeCoordinatorDidFinishWork()
+protocol DetailRecipeCoordinatorDelegate: AnyObject {
+    func detailRecipeCoordinatorDidFinishWork()
 }
 
-protocol RecipeViewModelDelegate: class {
-  func showDetailRecipe(uuid: String)
-  func showPhoto(image: UIImage)
-  func closeViewController()
-  func showNetworkError(networkError: NetworkError, completion: @escaping (() -> ()) )
-}
-
-final class RecipeCoordinator: CoordinatorProtocol {
-  weak var delegate: RecipeCoordinatorDelegate?
+final class DetailRecipeCoordinator: CoordinatorProtocol {
+  weak var delegate: DetailRecipeCoordinatorDelegate?
   private var navigationController: UINavigationController
   private var childCoordinators: [CoordinatorProtocol] = []
   private var services: ServiceAssemblyProtocol
@@ -37,19 +30,19 @@ final class RecipeCoordinator: CoordinatorProtocol {
 }
 
 // MARK: RecipeViewModelDelegate
-extension RecipeCoordinator: RecipeViewModelDelegate {
+extension DetailRecipeCoordinator: DetailRecipeViewModelDelegate {
   func showNetworkError(networkError: NetworkError, completion: @escaping () -> ()) {
-    navigationController.showHudError(networkError: networkError) {
+    navigationController.showNetworkError(networkError: networkError) {
       completion()
     }
   }
   
   func closeViewController() {
-    self.delegate?.recipeCoordinatorDidFinishWork()
+    self.delegate?.detailRecipeCoordinatorDidFinishWork()
   }
   
   func showDetailRecipe(uuid: String) {
-    let coordinator = RecipeCoordinator(navigationController: navigationController,
+    let coordinator = DetailRecipeCoordinator(navigationController: navigationController,
                                         uuid: uuid,
                                         services: services)
     coordinator.start()
@@ -57,8 +50,8 @@ extension RecipeCoordinator: RecipeViewModelDelegate {
   }
   
   func showPhoto(image: UIImage) {
-    let viewController = PhotoViewController(image: image)
-    let viewModel = PhotoViewModel(photoLibraryService: services.photoLibraryService)
+    let viewController = PhotosViewController(image: image)
+    let viewModel = PhotosViewModel(photoLibraryService: services.photoLibraryService)
     viewController.viewModel = viewModel
     viewController.modalPresentationStyle = .fullScreen
     navigationController.present(viewController, animated: true, completion: nil)

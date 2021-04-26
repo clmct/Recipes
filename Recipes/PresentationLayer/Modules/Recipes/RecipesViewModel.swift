@@ -10,8 +10,13 @@ enum LoaderAction {
   case stop
 }
 
+protocol RecipesViewModelDelegate: class {
+  func showDetailRecipe(uuid: String)
+  func showNetworkError(networkError: NetworkError, completion: @escaping (() -> ()) )
+}
+
 protocol RecipesViewModelProtocol {
-  var didUpdateViewModel: (() -> ())? { get set }
+  var didFetchData: (() -> ())? { get set }
   var didRequestLoader: ((LoaderAction) -> ())? { get set }
   var filteredRecipes: [RecipeListElement] { get set }
   func updateSearchResults(text: String, index: Int)
@@ -23,7 +28,7 @@ protocol RecipesViewModelProtocol {
 final class RecipesViewModel: RecipesViewModelProtocol {
   let networkService: NetworkServiceProtocol
   weak var delegate: RecipesViewModelDelegate?
-  var didUpdateViewModel: (() -> ())?
+  var didFetchData: (() -> ())?
   var recipes = [RecipeListElement]()
   var filteredRecipes = [RecipeListElement]()
   var didRequestLoader: ((LoaderAction) -> ())?
@@ -43,7 +48,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
     case .date:
       filteredRecipes.sort { $0.lastUpdated > $1.lastUpdated }
     }
-    self.didUpdateViewModel?()
+    self.didFetchData?()
   }
   
   func fetchData() {
@@ -54,7 +59,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
         self.recipes = recipes.recipes
         self.filteredRecipes = recipes.recipes.sorted { $0.name < $1.name }
         DispatchQueue.main.async {
-          self.didUpdateViewModel?()
+          self.didFetchData?()
           self.didRequestLoader?(.stop)
         }
       case .failure(let error):
@@ -71,7 +76,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
   func updateSearchResults(text: String, index: Int) {
     if text == "" {
       filteredRecipes = recipes
-      self.didUpdateViewModel?()
+      didFetchData?()
       return
     }
     
@@ -92,7 +97,7 @@ final class RecipesViewModel: RecipesViewModelProtocol {
         return true
       }
     }
-    self.didUpdateViewModel?()
+    didFetchData?()
   }
 }
 

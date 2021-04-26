@@ -1,10 +1,5 @@
 import UIKit
 
-protocol RecipesViewModelDelegate: class {
-  func showDetailRecipe(uuid: String)
-  func showNetworkError(networkError: NetworkError, completion: @escaping (() -> ()) )
-}
-
 final class RecipesCoordinator: CoordinatorProtocol {
   private var navigationController: UINavigationController
   private var childCoordinators: [CoordinatorProtocol] = []
@@ -27,13 +22,13 @@ final class RecipesCoordinator: CoordinatorProtocol {
 // MARK: RecipesViewModelDelegate
 extension RecipesCoordinator: RecipesViewModelDelegate {
   func showNetworkError(networkError: NetworkError, completion: @escaping () -> ()) {
-    navigationController.showHudError(networkError: networkError) {
+    navigationController.showNetworkError(networkError: networkError) {
       completion()
     }
   }
   
   func showDetailRecipe(uuid: String) {
-    let coordinator = RecipeCoordinator(navigationController: navigationController,
+    let coordinator = DetailRecipeCoordinator(navigationController: navigationController,
                                         uuid: uuid, services: services)
     childCoordinators.append(coordinator)
     coordinator.delegate = self
@@ -42,8 +37,8 @@ extension RecipesCoordinator: RecipesViewModelDelegate {
 }
 
 // MARK: RecipeCoordinatorDelegate
-extension RecipesCoordinator: RecipeCoordinatorDelegate {
-  func recipeCoordinatorDidFinishWork() {
+extension RecipesCoordinator: DetailRecipeCoordinatorDelegate {
+  func detailRecipeCoordinatorDidFinishWork() {
     childCoordinators.removeAll()
   }
 }

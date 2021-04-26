@@ -24,7 +24,7 @@ final class RecipesViewController: UIViewController {
   
   // MARK: BindToViewModel
   private func bindToViewModel() {
-    viewModel?.didUpdateViewModel = { [weak self] in
+    viewModel?.didFetchData = { [weak self] in
       guard let self = self else { return }
       self.tableView.reloadData()
     }
@@ -43,11 +43,11 @@ final class RecipesViewController: UIViewController {
   // MARK: Private Methods
   @objc
   private func showActionCheet() {
-    createActionSheet()
+    presentActionSheet()
   }
   
   // MARK: Layout
-  private func createActionSheet() {
+  private func presentActionSheet() {
     let actionSheet = UIAlertController()
     
     actionSheet.addAction(UIAlertAction(title: "Sort by Name", style: .default, handler: { _ in
@@ -146,8 +146,4 @@ extension RecipesViewController: UISearchResultsUpdating {
     let index = searchController.searchBar.selectedScopeButtonIndex
     viewModel?.updateSearchResults(text: text, index: index)
   }
-}
-
-extension RecipesViewController: HudErrorShowing {
-  
 }

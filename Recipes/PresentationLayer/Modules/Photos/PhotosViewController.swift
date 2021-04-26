@@ -1,10 +1,10 @@
 import UIKit
 import SnapKit
 
-final class PhotoViewController: UIViewController {
+final class PhotosViewController: UIViewController {
   
   // MARK: Properties
-  var viewModel: PhotoViewModelProtocol?
+  var viewModel: PhotosViewModelProtocol?
   
   private let imageView = UIImageView()
   private let saveButton = UIButton(type: .system)

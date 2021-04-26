@@ -94,23 +94,3 @@ final class NetworkErrorViewController: UIViewController {
     return NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
   }
 }
-
-
-protocol HudErrorShowing {}
-extension HudErrorShowing where Self: UINavigationController {
-  func showHudError(networkError: NetworkError,
-                    completion: @escaping () -> ()) {
-    
-    let hudView = NetworkErrorViewController(networkError: .noInternet)
-    hudView.didRefresh = { [weak self] in
-      self?.dismiss(animated: true, completion: nil)
-      completion()
-    }
-    hudView.modalPresentationStyle = .fullScreen
-    present(hudView, animated: true, completion: nil)
-  }
-}
-
-extension UINavigationController: HudErrorShowing {
-  
-}

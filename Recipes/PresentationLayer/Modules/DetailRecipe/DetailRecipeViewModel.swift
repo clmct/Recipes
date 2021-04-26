@@ -10,14 +10,21 @@ protocol DetailRecipeViewModelProtocol {
   func closeViewController()
 }
 
+protocol DetailRecipeViewModelDelegate: class {
+  func showDetailRecipe(uuid: String)
+  func showPhoto(image: UIImage)
+  func closeViewController()
+  func showNetworkError(networkError: NetworkError, completion: @escaping (() -> ()) )
+}
+
 final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
-  var uuid: String
-  let networkService: NetworkServiceProtocol
+  weak var delegate: DetailRecipeViewModelDelegate?
   var recipe: RecipeElement?
-  weak var delegate: RecipeViewModelDelegate?
+  var uuid: String
   var didFetchData: ((RecipeElement) -> ())?
   var didRequestLoader: ((LoaderAction) -> ())?
-
+  let networkService: NetworkServiceProtocol
+  
   init(uuid: String, networkService: NetworkServiceProtocol) {
     self.uuid = uuid
     self.networkService = networkService
@@ -37,9 +44,9 @@ final class DetailRecipeViewModel: DetailRecipeViewModelProtocol {
           self.didFetchData?(recipe.recipe)
           self.didRequestLoader?(.stop)
         }
-      case .failure(let error):
+      case .failure(let networkError):
         DispatchQueue.main.async {
-          self.delegate?.showNetworkError(networkError: error) { [weak self] in
+          self.delegate?.showNetworkError(networkError: networkError) { [weak self] in
             self?.fetchData()
           }
           self.didRequestLoader?(.stop)

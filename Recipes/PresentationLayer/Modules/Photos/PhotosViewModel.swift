@@ -1,11 +1,11 @@
 import UIKit
 import Photos
 
-protocol PhotoViewModelProtocol {
+protocol PhotosViewModelProtocol {
   func save(photo: UIImage, completionHandler: @escaping (Error?) -> ())
 }
 
-final class PhotoViewModel: PhotoViewModelProtocol {
+final class PhotosViewModel: PhotosViewModelProtocol {
   private var photoLibraryService: PhotoLibraryServiceProtocol
   
   init(photoLibraryService: PhotoLibraryServiceProtocol) {
