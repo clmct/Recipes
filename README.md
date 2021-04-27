@@ -1,8 +1,8 @@
 
 # Recipes
-Swift iOS приложение, написанное с применением паттерна MVVM(non-reactive).
+Swift iOS application based on MVVM(non-reactive) pattern.
 
-### Скриншоты:
+### Screenshots:
 
 <p float="left">
 <img src="https://user-images.githubusercontent.com/49912185/116223881-301d3000-a77a-11eb-8343-51359892ff6d.png" width="200">
