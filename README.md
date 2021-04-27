@@ -26,7 +26,7 @@ Swift iOS приложение, написанное с применением �
     
 ### Скриншоты:
 <p float="left">
-<img src="https://user-images.githubusercontent.com/49912185/116223881-301d3000-a77a-11eb-8343-51359892ff6d.png" width="300">
-<img src="https://user-images.githubusercontent.com/49912185/116223908-37dcd480-a77a-11eb-9537-b4f96096f685.png" width="300"/>
-<img src="https://user-images.githubusercontent.com/49912185/116223921-3ad7c500-a77a-11eb-8f94-d5ebca6e4a9c.png" width="300"/>
+<img src="https://user-images.githubusercontent.com/49912185/116223881-301d3000-a77a-11eb-8343-51359892ff6d.png" width="200">
+<img src="https://user-images.githubusercontent.com/49912185/116223908-37dcd480-a77a-11eb-9537-b4f96096f685.png" width="200"/>
+<img src="https://user-images.githubusercontent.com/49912185/116223921-3ad7c500-a77a-11eb-8f94-d5ebca6e4a9c.png" width="200"/>
 </p>
